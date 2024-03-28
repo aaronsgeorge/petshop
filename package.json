@@ -1,0 +1,12 @@
+{
+  "name": "petshop",
+  "version": "1.0.0",
+  "description": "eCommerce site MERN stack",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "author": "Ember Chen",
+  "license": "MIT"
+}
