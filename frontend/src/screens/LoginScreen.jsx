@@ -2,18 +2,39 @@ import { useState, useEffect } from "react";
 import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+
+  const navigator = useNavigate();
+  const dispatch = useDispatch();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const { search } = useLocation();
+  const redirect = search ? new URLSearchParams(search).get("redirect") : "/";
+
+  useEffect(() => {
+    if (userInfo) {
+      navigator(redirect);
+    }
+  }, [navigator, redirect, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     console.log("submit");
+
+    const res = {
+      email: "admin@123.com",
+      name: "Admin",
+    };
+
+    dispatch(setCredentials({ ...res }));
+    navigator(redirect);
   };
   return (
     <Container>
