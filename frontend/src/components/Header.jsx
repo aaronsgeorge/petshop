@@ -1,5 +1,5 @@
-import { Badge, Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { FaUser } from "react-icons/fa";
 import logo from "../assets/logo.png";
 
 const Header = () => {
@@ -14,14 +14,16 @@ const Header = () => {
       >
         <Container>
           <Navbar.Brand href="#home">
-            <img src={logo} alt="Petizen logo" style={{ width: "100px" }} />
+            <img src={logo} alt="Petizen logo" style={{ width: "160px" }} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link>
-                <FaShoppingCart className="mb-1" />
-                <span> Cart</span>
+              <Nav.Link href="/login">
+                <Button className="rounded-pill px-3">
+                  <FaUser className="me-2" />
+                  <span>Sign in</span>
+                </Button>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
