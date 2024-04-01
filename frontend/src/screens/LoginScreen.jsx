@@ -4,14 +4,17 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
+import { useLoginMutation } from "../slices/usersApiSlice";
+import { toast } from "react-toastify";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const navigator = useNavigate();
   const dispatch = useDispatch();
+
+  const [login, { isLoading }] = useLoginMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -24,18 +27,17 @@ const LoginScreen = () => {
     }
   }, [navigator, redirect, userInfo]);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("submit");
-
-    const res = {
-      email: "admin@123.com",
-      name: "Admin",
-    };
-
-    dispatch(setCredentials({ ...res }));
-    navigator(redirect);
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigator(redirect);
+    } catch (error) {
+      toast.error(error?.data?.message || error?.error || "Unknown Error");
+    }
   };
+
   return (
     <Container>
       <Row className="justify-content-md-center py-5">
@@ -44,12 +46,14 @@ const LoginScreen = () => {
             <h2 className="mb-4 mt-2">Sign In</h2>
             <Form onSubmit={submitHandler} className="d-grid">
               <Form.Group controlId="email">
-                <Form.Label>Email Address</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="username"
+                  required
                 ></Form.Control>
               </Form.Group>
 
@@ -60,6 +64,8 @@ const LoginScreen = () => {
                   placeholder="Enter password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                  required
                 ></Form.Control>
               </Form.Group>
 
@@ -69,9 +75,9 @@ const LoginScreen = () => {
                 className="mt-4 rounded-pill px-4 "
                 disabled={isLoading}
               >
-                Sign In
+                {isLoading && <Loader />}
+                <span className="ms-2">Sign In</span>
               </Button>
-              {isLoading && <Loader />}
             </Form>
 
             <Row className="py-3">

@@ -2,15 +2,12 @@ import { Spinner } from "react-bootstrap";
 const Loader = () => {
   return (
     <Spinner
+      as="span"
       animation="border"
+      size="sm"
       role="status"
-      style={{
-        width: "100px",
-        height: "100px",
-        margin: "auto",
-        display: "block",
-      }}
-    ></Spinner>
+      aria-hidden="true"
+    />
   );
 };
 export default Loader;
