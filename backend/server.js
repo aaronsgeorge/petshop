@@ -21,11 +21,11 @@ app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 
-app.use(notFound);
-app.use(errorHandler);
-
 app.get("/", (req, res) => {
   res.send("Api is running...");
 });
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
