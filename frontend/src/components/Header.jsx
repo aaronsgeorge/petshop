@@ -41,6 +41,14 @@ const Header = () => {
           <Nav className="ms-auto">
             {userInfo ? (
               <NavDropdown title={userInfo.name} id="username" align="end">
+                {userInfo.isAdmin && (
+                  <>
+                    <NavDropdown.Item href="/admin">
+                      Admin dashboard
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                  </>
+                )}
                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutHandler}>
                   Sign out
