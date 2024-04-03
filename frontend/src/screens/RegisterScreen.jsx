@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
-import { useLoginMutation } from "../slices/usersApiSlice";
+import { useRegisterMutation } from "../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const RegisterScreen = () => {
@@ -25,7 +25,7 @@ const RegisterScreen = () => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [register, { isLoading }] = useRegisterMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -58,14 +58,21 @@ const RegisterScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    // try {
-    //   const res = await login({ email, password }).unwrap();
-    //   dispatch(setCredentials({ ...res }));
-    //   navigator(redirect);
-    // } catch (error) {
-    //   toast.error(error?.data?.message || error?.error || "Unknown Error");
-    // }
+    try {
+      const res = await register(form).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigator(redirect);
+    } catch (error) {
+      toast.error(error?.data?.message || error?.error || "Unknown Error");
+    }
   };
+
+  const { errorMessage, ...formWithoutError } = form;
+  const isFormInvalid =
+    isLoading ||
+    errorMessage ||
+    !Object.values(formWithoutError).every(Boolean);
+
   return (
     <Container>
       <Row className="justify-content-md-center py-5">
@@ -129,7 +136,7 @@ const RegisterScreen = () => {
                 type="submit"
                 variant="primary"
                 className="mt-4 rounded-pill px-4 "
-                disabled={isLoading}
+                disabled={isFormInvalid}
               >
                 {isLoading && <Loader />}
                 <span className="ms-2">Sign Up</span>
