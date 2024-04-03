@@ -1,36 +1,35 @@
-import { FaCheck } from "react-icons/fa";
-import { useGetUsersQuery } from "../slices/usersApiSlice";
+import { Nav, Container } from "react-bootstrap";
+import { Outlet, useLocation } from "react-router-dom";
 
 const AdminScreen = () => {
-  const { data: users, error, isLoading } = useGetUsersQuery();
-
+  const location = useLocation();
   return (
     <div>
-      <h2>Admin Dashboard</h2>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {users && (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Admin</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.isAdmin && <FaCheck />}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <h2 className="py-4">Admin Dashboard</h2>
+      <Nav
+        variant="tabs"
+        defaultActiveKey="/admin/orders"
+        activeKey={location.pathname}
+      >
+        <Nav.Item>
+          <Nav.Link href="/admin/orders" eventKey="/admin/orders">
+            Orders
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="/admin/users" href="/admin/users">
+            Users
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="/admin/products" href="/admin/products">
+            Products
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <Container className="py-3 px-0">
+        <Outlet />
+      </Container>
     </div>
   );
 };
