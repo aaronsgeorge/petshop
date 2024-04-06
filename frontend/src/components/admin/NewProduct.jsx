@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { Form, Button, Row, Col, Card } from "react-bootstrap";
+import Loader from "../Loader";
 import Input from "../Input";
+import { useCreateProductMutation } from "../../slices/productsApiSlice";
+import { DEFAULT_IMAGE } from "../../constants";
 
 const NewProduct = () => {
   const [image, setImage] = useState("");
   const [enteredValues, setEnteredValues] = useState({
     name: "",
-    price: undefined,
+    price: 0,
     category: "",
     description: "",
-    countInStock: undefined,
-    files: "",
+    countInStock: 0,
   });
   const [validated, setValidated] = useState(false);
+
+  const [createProduct, { isLoading }] = useCreateProductMutation();
 
   function handleInputChange(identifier, value) {
     setEnteredValues((prevValues) => ({
@@ -32,14 +36,34 @@ const NewProduct = () => {
     setValidated(true);
     console.log("enteredValues", enteredValues);
   }
+
   const uploadFileHandler = (e) => {
     const file = e.target.files[0];
     console.log("file", file);
   };
 
+  const createProductHandler = async () => {
+    const { name, price, category, description, countInStock } = enteredValues;
+    const product = {
+      name,
+      price,
+      category,
+      description,
+      countInStock,
+      image: DEFAULT_IMAGE,
+    };
+    console.log("product", product);
+    try {
+      const res = await createProduct(product).unwrap();
+      console.log("Product created:", res);
+    } catch (error) {
+      console.error("Failed to create product:", error);
+    }
+  };
+
   return (
     <Card className="p-4">
-      <h2 className="mb-4">NewProduct</h2>
+      <h2 className="mb-4">New Product</h2>
       <Form validated={validated} onSubmit={handleSubmit}>
         <Row>
           <Input
@@ -67,7 +91,7 @@ const NewProduct = () => {
         <Row>
           <Input
             as={Col}
-            label="Category"
+            label="Category *"
             controlId="category"
             type="text"
             onChange={(event) =>
@@ -90,7 +114,7 @@ const NewProduct = () => {
         </Row>
         <Row>
           <Input
-            label="description"
+            label="description *"
             controlId="Description"
             type="text"
             inputAs="textarea"
@@ -111,7 +135,8 @@ const NewProduct = () => {
           value={image}
         />
 
-        <Button type="submit" className="mt-4">
+        <Button type="submit" className="mt-4" onClick={createProductHandler}>
+          {isLoading && <Loader />}
           Create Product
         </Button>
       </Form>
