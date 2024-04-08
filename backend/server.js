@@ -1,3 +1,4 @@
+import path from "path";
 import express from "express";
 import dotenv from "dotenv";
 dotenv.config();
@@ -24,6 +25,9 @@ app.use(cookieParser());
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/upload", uploadRoutes);
+
+const __dirname = path.resolve(); // set __dirname to the absolute path of the directory containing the source file
+app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); // make the uploads folder static
 
 app.get("/", (req, res) => {
   res.send("Api is running...");
