@@ -8,16 +8,20 @@ const AllProducts = () => {
   return (
     <div>
       <h2>All Products</h2>
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && !products && <p>No products found</p>}
-      {products && (
-        <Row>
-          {products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : products.length === 0 ? (
+        <p>No products found</p>
+      ) : (
+        products && (
+          <Row>
+            {products.map((product) => (
+              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+        )
       )}
     </div>
   );

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Form, Button, Row, Col, Card, Image } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import Loader from "../Loader";
 import Input from "../Input";
+import ImageContainer from "../ImageContainer";
 import {
   useCreateProductMutation,
   useUploadProductImageMutation,
@@ -9,7 +10,7 @@ import {
 import { DEFAULT_IMAGE } from "../../constants";
 import { toast } from "react-toastify";
 
-const NewProduct = () => {
+const NewProduct = ({ onClose, onRefetchProducts }) => {
   const [image, setImage] = useState("");
   const [enteredValues, setEnteredValues] = useState({
     name: "",
@@ -41,7 +42,6 @@ const NewProduct = () => {
     try {
       const res = await uploadProductImage(formData).unwrap();
       toast.success(res.message);
-      console.log("Image uploaded:", res);
       handleInputChange("image", res.image);
     } catch (err) {
       toast.error(err?.data?.message || err.error);
@@ -71,16 +71,16 @@ const NewProduct = () => {
     };
     try {
       const res = await createProduct(product).unwrap();
-      console.log("Product created:", res);
-      toast.success("Product created successfully");
+      toast.success(res.message);
+      onClose();
+      onRefetchProducts();
     } catch (error) {
       console.error("Failed to create product:", error);
     }
   };
 
   return (
-    <Card className="p-4">
-      <h2 className="mb-4">New Product</h2>
+    <div className="p-2">
       <Form validated={validated} onSubmit={handleSubmit}>
         <Row>
           <Input
@@ -152,19 +152,27 @@ const NewProduct = () => {
               onChange={handleFileUpload}
               accept="image/*"
             />
-            <Card>
-              <Card.Img src={image || DEFAULT_IMAGE} />
-            </Card>
+            <ImageContainer
+              src={image || DEFAULT_IMAGE}
+              size="200px"
+              alt="upload image"
+              borderRadius="4px"
+            />
           </Col>
           <Col></Col>
         </Row>
-
-        <Button type="submit" className="mt-4" onClick={createProductHandler}>
-          {isLoading && <Loader />}
-          Create Product
-        </Button>
+        <div className="d-flex pt-4">
+          <Button
+            type="submit"
+            className="ms-auto"
+            onClick={createProductHandler}
+          >
+            {isLoading && <Loader />}
+            Create Product
+          </Button>
+        </div>
       </Form>
-    </Card>
+    </div>
   );
 };
 

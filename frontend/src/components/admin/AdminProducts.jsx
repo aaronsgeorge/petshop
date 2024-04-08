@@ -1,18 +1,31 @@
-import { Button, Table } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Table, Modal } from "react-bootstrap";
 import { FaRegEdit } from "react-icons/fa";
 import NewProduct from "./NewProduct";
 import ImageContainer from "../ImageContainer";
 import { useGetProductsQuery } from "../../slices/productsApiSlice";
 
 const AdminProducts = () => {
-  const { data: products, isLoading } = useGetProductsQuery();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const { data: products, isLoading, refetch } = useGetProductsQuery();
+
   return (
     <div>
-      <h1>Admin Products</h1>
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && !products && <p>No products found</p>}
-
-      {products && (
+      <div className="d-flex align-items-center py-4">
+        <span className="fs-4">Admin Products</span>
+        <Button className="btn btn-primary ms-auto" onClick={handleShow}>
+          Create Product
+        </Button>
+      </div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : products.length === 0 ? (
+        <p>No products found</p>
+      ) : (
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -35,10 +48,8 @@ const AdminProducts = () => {
                   />
                 </td>
                 <td>
-                  {product.name}
-                  <p style={{ color: "#6b6b6b", fontSize: "12px" }}>
-                    {`ID: ${product._id}`}
-                  </p>
+                  <p className="fw-bold mb-0">{product.name}</p>
+                  <p className="text-secondary fs-8">{`ID: ${product._id}`}</p>
                 </td>
                 <td>{product.price}</td>
                 <td>{product.category}</td>
@@ -53,8 +64,14 @@ const AdminProducts = () => {
         </Table>
       )}
 
-      <Button className="btn btn-primary">Create Product</Button>
-      <NewProduct />
+      <Modal show={show} onHide={handleClose} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>New Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <NewProduct onClose={handleClose} onRefetchProducts={refetch} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
