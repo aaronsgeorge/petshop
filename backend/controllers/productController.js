@@ -47,4 +47,31 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 });
 
-export { getProducts, createProduct, getProductById };
+// @desc    Update a product
+// @route   PUT /api/products/:id
+// @access  Private/Admin
+const updateProduct = asyncHandler(async (req, res) => {
+  const { name, price, description, countInStock, category, image } = req.body;
+
+  const product =
+    (await Product.findById(req.params.id)) ||
+    new Product({
+      _id: req.params.id,
+    });
+
+  product.name = name;
+  product.price = price;
+  product.description = description;
+  product.countInStock = countInStock;
+  product.category = category;
+  product.image = image;
+
+  const updatedProduct = await product.save();
+
+  res.send({
+    message: "Product updated successfully",
+    product: updatedProduct,
+  });
+});
+
+export { getProducts, createProduct, getProductById, updateProduct };

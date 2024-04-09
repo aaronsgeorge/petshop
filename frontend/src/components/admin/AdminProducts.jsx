@@ -99,7 +99,11 @@ const AdminProducts = () => {
           <Modal.Title>Edit Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditProduct product={selectedProduct} />
+          <EditProduct
+            product={selectedProduct}
+            onClose={handleCloseEditModal}
+      
+          />
         </Modal.Body>
       </Modal>
     </div>

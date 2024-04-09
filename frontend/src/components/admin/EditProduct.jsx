@@ -6,11 +6,12 @@ import ImageContainer from "../ImageContainer";
 import {
   useCreateProductMutation,
   useUploadProductImageMutation,
+  useUpdateProductMutation,
 } from "../../slices/productsApiSlice";
 import { DEFAULT_IMAGE } from "../../constants";
 import { toast } from "react-toastify";
 
-const EditProduct = ({ onClose, onRefetchProducts, product }) => {
+const EditProduct = ({ onClose, product }) => {
   const [image, setImage] = useState("");
   const [enteredValues, setEnteredValues] = useState({
     name: "",
@@ -37,6 +38,9 @@ const EditProduct = ({ onClose, onRefetchProducts, product }) => {
   }, [product]);
 
   const [createProduct, { isLoading }] = useCreateProductMutation();
+
+  const [updateProduct, { isLoading: loadingUpdate }] =
+    useUpdateProductMutation();
 
   const [uploadProductImage, { isLoading: loadingUpload }] =
     useUploadProductImageMutation();
@@ -75,19 +79,18 @@ const EditProduct = ({ onClose, onRefetchProducts, product }) => {
   const handleEditProduct = async () => {
     const { name, price, category, description, countInStock, image } =
       enteredValues;
-    const product = {
-      name,
-      price,
-      category,
-      description,
-      countInStock,
-      image,
-    };
     try {
-      const res = await createProduct(product).unwrap();
+      const res = await updateProduct({
+        productId: product._id,
+        name,
+        price,
+        category,
+        description,
+        countInStock,
+        image,
+      }).unwrap();
       toast.success(res.message);
       onClose();
-      onRefetchProducts();
     } catch (error) {
       console.error("Failed to create product:", error);
     }
@@ -181,7 +184,11 @@ const EditProduct = ({ onClose, onRefetchProducts, product }) => {
           <Col></Col>
         </Row>
         <div className="d-flex pt-4">
-          <Button type="submit" className="ms-auto px-4" onClick={handleEditProduct}>
+          <Button
+            type="submit"
+            className="ms-auto px-4"
+            onClick={handleEditProduct}
+          >
             {isLoading && <Loader />}
             Save
           </Button>

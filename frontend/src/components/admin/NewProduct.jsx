@@ -10,7 +10,7 @@ import {
 import { DEFAULT_IMAGE } from "../../constants";
 import { toast } from "react-toastify";
 
-const NewProduct = ({ onClose, onRefetchProducts }) => {
+const NewProduct = ({ onClose }) => {
   const [image, setImage] = useState("");
   const [enteredValues, setEnteredValues] = useState({
     name: "",
@@ -73,7 +73,6 @@ const NewProduct = ({ onClose, onRefetchProducts }) => {
       const res = await createProduct(product).unwrap();
       toast.success(res.message);
       onClose();
-      onRefetchProducts();
     } catch (error) {
       console.error("Failed to create product:", error);
     }
