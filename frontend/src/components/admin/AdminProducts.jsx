@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
 import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import NewProduct from "./NewProduct";
 import EditProduct from "./EditProduct";
 import ImageContainer from "../ImageContainer";
-import { useGetProductsQuery } from "../../slices/productsApiSlice";
+import {
+  useGetProductsQuery,
+  useDeleteProductMutation,
+} from "../../slices/productsApiSlice";
+import { toast } from "react-toastify";
 
 const AdminProducts = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -19,9 +24,23 @@ const AdminProducts = () => {
 
   const { data: products, isLoading, refetch } = useGetProductsQuery();
 
+  const [deleteProduct] = useDeleteProductMutation();
+
   const handleClickEditBtn = (product) => {
     setSelectedProduct(product);
     handleShowEditModal();
+  };
+
+  const handleDeleteProduct = async (id) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await deleteProduct(id);
+        toast.success("Product deleted successfully");
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
   };
 
   return (
@@ -75,6 +94,12 @@ const AdminProducts = () => {
                   >
                     <FaRegEdit />
                   </Button>
+                  <Button
+                    variant="light"
+                    onClick={() => handleDeleteProduct(product._id)}
+                  >
+                    <RiDeleteBin6Line />
+                  </Button>
                 </td>
               </tr>
             ))}
@@ -87,10 +112,7 @@ const AdminProducts = () => {
           <Modal.Title>New Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <NewProduct
-            onClose={handleCloseCreateModal}
-            onRefetchProducts={refetch}
-          />
+          <NewProduct onClose={handleCloseCreateModal} />
         </Modal.Body>
       </Modal>
 
@@ -102,7 +124,6 @@ const AdminProducts = () => {
           <EditProduct
             product={selectedProduct}
             onClose={handleCloseEditModal}
-      
           />
         </Modal.Body>
       </Modal>
