@@ -108,7 +108,7 @@ const NewProduct = ({ onClose, onRefetchProducts }) => {
         <Row>
           <Input
             as={Col}
-            label="Category *"
+            label="Category"
             controlId="category"
             type="text"
             onChange={(event) =>
