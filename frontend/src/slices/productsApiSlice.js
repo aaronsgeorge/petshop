@@ -25,6 +25,12 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    getProductDetails: builder.query({
+      query: (id) => ({
+        url: `${PRODUCTS_URL}/${id}`,
+      }),
+      keepUnusedDataFor: 5,
+    }),
   }),
 });
 
@@ -32,4 +38,5 @@ export const {
   useGetProductsQuery,
   useCreateProductMutation,
   useUploadProductImageMutation,
+  useGetProductDetailsQuery,
 } = productsApiSlice;
