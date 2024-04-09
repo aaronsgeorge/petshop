@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Loader from "../Loader";
 import Input from "../Input";
@@ -10,7 +10,7 @@ import {
 import { DEFAULT_IMAGE } from "../../constants";
 import { toast } from "react-toastify";
 
-const NewProduct = ({ onClose, onRefetchProducts }) => {
+const EditProduct = ({ onClose, onRefetchProducts, product }) => {
   const [image, setImage] = useState("");
   const [enteredValues, setEnteredValues] = useState({
     name: "",
@@ -21,6 +21,20 @@ const NewProduct = ({ onClose, onRefetchProducts }) => {
     image: DEFAULT_IMAGE,
   });
   const [validated, setValidated] = useState(false);
+
+  useEffect(() => {
+    if (product) {
+      setEnteredValues({
+        name: product.name,
+        price: product.price,
+        category: product.category,
+        description: product.description,
+        countInStock: product.countInStock,
+        image: product.image,
+      });
+      setImage(product.image);
+    }
+  }, [product]);
 
   const [createProduct, { isLoading }] = useCreateProductMutation();
 
@@ -58,7 +72,7 @@ const NewProduct = ({ onClose, onRefetchProducts }) => {
     setValidated(true);
   }
 
-  const createProductHandler = async () => {
+  const handleEditProduct = async () => {
     const { name, price, category, description, countInStock, image } =
       enteredValues;
     const product = {
@@ -81,6 +95,10 @@ const NewProduct = ({ onClose, onRefetchProducts }) => {
 
   return (
     <div className="p-2">
+      <p className="text-secondary fs-6 fw-light">
+        Product ID: {product && product._id}
+      </p>
+
       <Form validated={validated} onSubmit={handleSubmit}>
         <Row>
           <Input
@@ -163,13 +181,9 @@ const NewProduct = ({ onClose, onRefetchProducts }) => {
           <Col></Col>
         </Row>
         <div className="d-flex pt-4">
-          <Button
-            type="submit"
-            className="ms-auto"
-            onClick={createProductHandler}
-          >
+          <Button type="submit" className="ms-auto px-4" onClick={handleEditProduct}>
             {isLoading && <Loader />}
-            Create Product
+            Save
           </Button>
         </div>
       </Form>
@@ -177,4 +191,4 @@ const NewProduct = ({ onClose, onRefetchProducts }) => {
   );
 };
 
-export default NewProduct;
+export default EditProduct;

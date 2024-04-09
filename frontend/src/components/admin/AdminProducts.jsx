@@ -2,22 +2,36 @@ import { useState } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
 import { FaRegEdit } from "react-icons/fa";
 import NewProduct from "./NewProduct";
+import EditProduct from "./EditProduct";
 import ImageContainer from "../ImageContainer";
 import { useGetProductsQuery } from "../../slices/productsApiSlice";
 
 const AdminProducts = () => {
-  const [show, setShow] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseCreateModal = () => setShowCreateModal(false);
+  const handleShowCreateModal = () => setShowCreateModal(true);
+
+  const handleCloseEditModal = () => setShowEditModal(false);
+  const handleShowEditModal = () => setShowEditModal(true);
 
   const { data: products, isLoading, refetch } = useGetProductsQuery();
+
+  const handleClickEditBtn = (product) => {
+    setSelectedProduct(product);
+    handleShowEditModal();
+  };
 
   return (
     <div>
       <div className="d-flex align-items-center py-4">
         <span className="fs-4">Admin Products</span>
-        <Button className="btn btn-primary ms-auto" onClick={handleShow}>
+        <Button
+          className="btn btn-primary ms-auto"
+          onClick={handleShowCreateModal}
+        >
           Create Product
         </Button>
       </div>
@@ -54,7 +68,11 @@ const AdminProducts = () => {
                 <td>{product.price}</td>
                 <td>{product.category}</td>
                 <td>
-                  <Button variant="light" className="mx-2">
+                  <Button
+                    variant="light"
+                    className="mx-2"
+                    onClick={() => handleClickEditBtn(product)}
+                  >
                     <FaRegEdit />
                   </Button>
                 </td>
@@ -64,12 +82,24 @@ const AdminProducts = () => {
         </Table>
       )}
 
-      <Modal show={show} onHide={handleClose} size="lg">
+      <Modal show={showCreateModal} onHide={handleCloseCreateModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>New Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <NewProduct onClose={handleClose} onRefetchProducts={refetch} />
+          <NewProduct
+            onClose={handleCloseCreateModal}
+            onRefetchProducts={refetch}
+          />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditProduct product={selectedProduct} />
         </Modal.Body>
       </Modal>
     </div>
