@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import CartButton from "./cart/CartButton";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../slices/authSlice";
 import { useLogoutMutation } from "../slices/usersApiSlice";
@@ -62,6 +63,9 @@ const Header = () => {
                 </Button>
               </Nav.Link>
             )}
+            <Nav.Link href="/cart">
+              <CartButton />
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
