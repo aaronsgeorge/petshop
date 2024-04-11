@@ -41,7 +41,12 @@ const Header = () => {
 
           <Nav className="ms-auto">
             {userInfo ? (
-              <NavDropdown title={userInfo.name} id="username" align="end">
+              <NavDropdown
+                title={userInfo.name}
+                id="username"
+                align="end"
+                className="mt-2"
+              >
                 {userInfo.isAdmin && (
                   <>
                     <NavDropdown.Item href="/admin/products">

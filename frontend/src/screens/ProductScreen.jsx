@@ -1,20 +1,15 @@
 import { useState } from "react";
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-  Container,
-} from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { Row, Col, ListGroup, Button, Container } from "react-bootstrap";
 import ImageContainer from "../components/ImageContainer";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
+import { addToCart } from "../slices/cartSlice";
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1);
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const { id: productId } = useParams();
@@ -27,8 +22,8 @@ const ProductScreen = () => {
 
   const isInStock = product && product.countInStock > 0;
 
-  const handleAddToCart = () => {
-    //
+  const addToCartHandler = () => {
+    dispatch(addToCart({ ...product, qty }));
   };
 
   return (
@@ -87,7 +82,7 @@ const ProductScreen = () => {
               )}
               <ListGroup.Item>
                 <Button
-                  onClick={handleAddToCart}
+                  onClick={addToCartHandler}
                   className="rounded-pill px-5 my-2"
                   type="button"
                   disabled={!isInStock}
