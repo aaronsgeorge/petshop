@@ -36,7 +36,7 @@ const Header = () => {
       >
         <Container>
           <Navbar.Brand href="/">
-            <img src={logo} alt="Petizen logo" style={{ width: "160px" }} />
+            <img src={logo} alt="Petizen logo" style={{ width: "124px" }} />
           </Navbar.Brand>
 
           <Nav className="ms-auto">
