@@ -45,21 +45,25 @@ const Header2 = () => {
         bg="light"
         data-bs-theme="light"
         className="border-bottom"
-        style={{ height: "120px" }}
+        style={{ height: "114px" }}
       >
         <Container className="gap-4 fw-bold">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/cart">Products</Nav.Link>
-          <Nav.Link href="/about">About</Nav.Link>
+          <Nav>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/cart">Products</Nav.Link>
+            <Nav.Link href="/about">Sales</Nav.Link>
+          </Nav>
           <Navbar.Brand href="/" className="mx-auto">
             <img src={logo2} alt="Petizen logo" style={{ width: "110px" }} />
           </Navbar.Brand>
+          <Nav>
+            <Nav.Link href="/about">About</Nav.Link>
+          </Nav>
           {userInfo ? (
             <NavDropdown
               title={userInfo.name}
               id="username"
               align="end"
-              className="mt-2"
             >
               {userInfo.isAdmin && (
                 <>
