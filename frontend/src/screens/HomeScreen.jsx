@@ -1,14 +1,14 @@
 import React from "react";
-import AllProducts from "../components/home/AllProducts";
 import HomeCarousel from "../components/home/HomeCarousel";
 import HomeCatergories from "../components/home/HomeCatergories";
+import HomePopular from "../components/home/HomePopular";
 
 const HomeScreen = () => {
   return (
     <>
       <HomeCarousel />
       <HomeCatergories />
-      <AllProducts />
+      <HomePopular />
     </>
   );
 };

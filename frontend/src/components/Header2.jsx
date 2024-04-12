@@ -50,8 +50,8 @@ const Header2 = () => {
         <Container className="gap-4 fw-bold">
           <Nav>
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/cart">Products</Nav.Link>
-            <Nav.Link href="/about">Sales</Nav.Link>
+            <Nav.Link href="/products">Products</Nav.Link>
+            <Nav.Link href="/sales">Sales</Nav.Link>
           </Nav>
           <Navbar.Brand href="/" className="mx-auto">
             <img src={logo2} alt="Petizen logo" style={{ width: "110px" }} />
@@ -80,8 +80,7 @@ const Header2 = () => {
             </NavDropdown>
           ) : (
             <Nav.Link href="/login">
-              <Button className="rounded-pill px-3">
-                {/* <FaUser className="me-2" /> */}
+              <Button className="rounded-pill px-3 btn-primary" size="sm">
                 <span>Sign in</span>
               </Button>
             </Nav.Link>

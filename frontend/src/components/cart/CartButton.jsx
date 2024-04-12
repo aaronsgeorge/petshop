@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 const CartButton = () => {
   const { cartItems } = useSelector((state) => state.cart);
   return (
-    <Button variant="light" style={{ position: "relative" }}>
+    <Button variant="light" style={{ position: "relative" }} size="sm">
       <GrCart />
       {cartItems.length > 0 && (
-        <Badge pill style={{ position: "absolute", top: "-4px" }}>
+        <Badge pill className="cart-badge">
           {cartItems.length}
         </Badge>
       )}
