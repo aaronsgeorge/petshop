@@ -1,4 +1,4 @@
-import PageTitle from "../components/PageTitle";
+import HomeTitle from "../components/home/HomeTitle";
 import image from "../assets/about.png";
 import { Row, Col } from "react-bootstrap";
 
@@ -6,11 +6,13 @@ const AboutScreen = () => {
   return (
     <>
       <Row>
-        <PageTitle title="About Us" />
-      </Row>
-      <Row>
         <Col md={{ span: 10, offset: 1 }} lg={{ span: 8, offset: 2 }}>
-          <img src={image} alt="About Us" className="w-100 rounded-3 mb-4" />
+          <img src={image} alt="About Us" className="w-100 rounded-3 mt-4" />
+        </Col>
+        <HomeTitle title="About Us" />
+      </Row>
+      <Row className="about-content">
+        <Col md={{ span: 10, offset: 1 }} lg={{ span: 8, offset: 2 }}>
           <p>
             This website is a project I used to practice full-stack programming.
             I just make up the fllowing content to fill the space XD.

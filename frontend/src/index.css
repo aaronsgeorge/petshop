@@ -114,6 +114,20 @@ code {
   }
 }
 
+.about-content {
+  padding-bottom: 72px;
+  & h4 {
+    margin-top: 22px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #232323;
+  }
+
+  & p {
+    color: #232323;
+  }
+}
+
 footer {
   background-color: #e06811;
   color: #ffffff;
