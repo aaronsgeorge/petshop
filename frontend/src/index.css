@@ -17,20 +17,34 @@ code {
   margin: 24px auto;
   font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 1rem;
-
   text-align: center;
   color: rgb(64, 64, 64);
+  & .title-line {
+    position: relative;
+    bottom: -2px;
+    margin: 0 auto;
+    width: 80px;
+    height: 6px;
+    background-color: #f78432;
+    z-index: -1;
+    border-radius: 4px;
+  }
 }
-.title-line {
-  position: relative;
-  bottom: -2px;
-  margin: 0 auto;
-  width: 80px;
-  height: 6px;
-  background-color: #f78432;
-  z-index: -1;
-  border-radius: 4px;
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: left;
+  color: rgb(64, 64, 64);
+  & .title-line {
+    position: relative;
+    bottom: -2px;
+    width: 80%;
+    height: 6px;
+    background-color: #f78432;
+    z-index: -1;
+    border-radius: 4px;
+  }
 }
 .category-img {
   margin-bottom: 16px;

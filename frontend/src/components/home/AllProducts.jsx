@@ -1,4 +1,4 @@
-import HomeTitle from "./HomeTitle.jsx";
+import PageTitle from "../PageTitle.jsx";
 import { Row, Col } from "react-bootstrap";
 import Product from "../../components/Product";
 import { useGetProductsQuery } from "../../slices/productsApiSlice";
@@ -7,7 +7,7 @@ const AllProducts = () => {
   const { data: products, isLoading } = useGetProductsQuery();
   return (
     <div>
-      <HomeTitle title="All Products" />
+      <PageTitle title="All Products" />
 
       {isLoading ? (
         <p>Loading...</p>

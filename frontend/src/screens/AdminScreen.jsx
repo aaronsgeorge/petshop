@@ -1,11 +1,12 @@
 import { Nav, Container } from "react-bootstrap";
+import PageTitle from "../components/PageTitle";
 import { Outlet, useLocation } from "react-router-dom";
 
 const AdminScreen = () => {
   const location = useLocation();
   return (
     <div>
-      <h2 className="py-4">Admin Dashboard</h2>
+      <PageTitle title="Admin Dashboard" />
       <Nav
         variant="tabs"
         defaultActiveKey="/admin/orders"
