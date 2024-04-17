@@ -53,7 +53,8 @@ const OrderShipping = () => {
             {Object.keys(enteredValues).map((key) => {
               return (
                 <Col md={6} key={`entered${key}`} className="mb-2">
-                  {getLable(key) + ": " + enteredValues[key]}
+                  <span className="fw-bold text-black-50">{getLable(key) + ": "}</span>
+                  {enteredValues[key]}
                 </Col>
               );
             })}

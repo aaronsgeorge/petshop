@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import PageTitle from "../components/PageTitle.jsx";
+import OrderPrice from "../components/order/OrderPrice.jsx";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Row,
@@ -10,7 +12,6 @@ import {
   Button,
   Card,
 } from "react-bootstrap";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { addToCart, removeFromCart } from "../slices/cartSlice";
 
 const CartScreen = () => {
@@ -29,16 +30,13 @@ const CartScreen = () => {
   };
 
   const checkoutHandler = () => {
-    navigate("/login?redirect=/shipping");
+    navigate("/login?redirect=/revieworder");
   };
-
-  const totalPrice = cartItems
-    .reduce((acc, item) => acc + item.qty * item.price, 0)
-    .toFixed(2);
 
   return (
     <>
       <PageTitle title="Shopping Cart" />
+
       <Row className="py-2">
         <Col md={8}>
           {cartItems.length === 0 ? (
@@ -91,30 +89,20 @@ const CartScreen = () => {
             </ListGroup>
           )}
         </Col>
+
         <Col md={4}>
           <Card className="py-2">
             <ListGroup variant="flush">
-              <ListGroup.Item>
-                <h2 className="fs-5 fw-bold text-black-50">
-                  Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}{" "}
-                  items)
-                </h2>
-                <span className="fs-5">$ {totalPrice}</span>
-              </ListGroup.Item>
+              <OrderPrice isInCart />
+
               <ListGroup.Item>
                 <Button
-                  className="btn-block rounded-pill px-3 mt-2"
+                  className="btn-block rounded-pill px-4 mt-2"
                   disabled={cartItems.length === 0}
                   onClick={checkoutHandler}
                 >
                   Continue to checkout
                 </Button>
-                <a
-                  href="/revieworder"
-                  className="btn btn-light btn-block rounded-pill mt-2"
-                >
-                  Continue shopping
-                </a>
               </ListGroup.Item>
             </ListGroup>
           </Card>

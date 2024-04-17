@@ -8,9 +8,6 @@ const OrderPayment = () => {
 
   const [isSaved, setIsSaved] = useState(false);
 
-  // const cart = useSelector((state) => state.cart);
-  // console.log(cart);
-
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
@@ -23,7 +20,10 @@ const OrderPayment = () => {
     <>
       {isSaved ? (
         <div>
-          <p>Saved Payment Method: {paymentMethod}</p>
+          <p>
+            <span className="fw-bold text-black-50">Saved Method: </span>
+            {paymentMethod}
+          </p>
           <div className="d-flex">
             <Button
               variant="outline-primary"
