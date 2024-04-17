@@ -109,6 +109,12 @@ const CartScreen = () => {
                 >
                   Continue to checkout
                 </Button>
+                <a
+                  href="/revieworder"
+                  className="btn btn-light btn-block rounded-pill mt-2"
+                >
+                  Continue shopping
+                </a>
               </ListGroup.Item>
             </ListGroup>
           </Card>
