@@ -47,7 +47,7 @@ const Header2 = () => {
         className="border-bottom"
         style={{ height: "114px" }}
       >
-        <Container className="gap-4 fw-bold">
+        <Container className="gap-4 fw-bold header-text">
           <Nav>
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/products">Products</Nav.Link>

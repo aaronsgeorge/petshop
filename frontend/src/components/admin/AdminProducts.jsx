@@ -45,10 +45,9 @@ const AdminProducts = () => {
 
   return (
     <div>
-      <div className="d-flex align-items-center py-4">
-        <span className="fs-4">Admin Products</span>
+      <div className="d-flex align-items-center py-3">
         <Button
-          className="btn btn-primary ms-auto"
+          className="btn btn-primary ms-auto rounded-pill px-4"
           onClick={handleShowCreateModal}
         >
           Create Product

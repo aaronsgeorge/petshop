@@ -11,6 +11,7 @@ const AdminScreen = () => {
         variant="tabs"
         defaultActiveKey="/admin/orders"
         activeKey={location.pathname}
+        className="fw-bold"
       >
         <Nav.Item>
           <Nav.Link href="/admin/orders" eventKey="/admin/orders">
