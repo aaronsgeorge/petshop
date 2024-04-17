@@ -77,7 +77,7 @@ const RegisterScreen = () => {
     <Container>
       <Row className="justify-content-md-center py-5">
         <Col xs={12} md={6} lg={5} xl={4}>
-          <Card className="p-4">
+          <Card className="my-2 p-4 rounded shadow" border="light">
             <h2 className="mb-4 mt-2">Sign Up</h2>
             <Form onSubmit={submitHandler} className="d-grid">
               <Form.Group controlId="username">

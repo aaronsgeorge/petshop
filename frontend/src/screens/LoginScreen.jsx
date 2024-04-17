@@ -38,11 +38,13 @@ const LoginScreen = () => {
     }
   };
 
+  const isFormInvalid = !email || !password || isLoading;
+
   return (
     <Container>
       <Row className="justify-content-md-center py-5">
         <Col xs={12} md={6} lg={5} xl={4}>
-          <Card className="p-4">
+          <Card className="my-2 p-4 rounded shadow" border="light">
             <h2 className="mb-4 mt-2">Sign In</h2>
             <Form onSubmit={submitHandler} className="d-grid">
               <Form.Group controlId="email">
@@ -73,7 +75,7 @@ const LoginScreen = () => {
                 type="submit"
                 variant="primary"
                 className="mt-4 rounded-pill px-4 "
-                disabled={isLoading}
+                disabled={isFormInvalid}
               >
                 {isLoading && <Loader />}
                 <span className="ms-2">Sign In</span>
