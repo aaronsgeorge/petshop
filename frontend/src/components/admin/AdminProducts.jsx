@@ -65,6 +65,7 @@ const AdminProducts = () => {
               <th>Image</th>
               <th>Product Name</th>
               <th>Price</th>
+              <th>Count in Stock</th>
               <th>Category</th>
               <th></th>
             </tr>
@@ -85,6 +86,7 @@ const AdminProducts = () => {
                   <p className="text-secondary fs-8">{`ID: ${product._id}`}</p>
                 </td>
                 <td>{product.price}</td>
+                <td>{product.countInStock}</td>
                 <td>{product.category}</td>
                 <td>
                   <Button
@@ -98,7 +100,7 @@ const AdminProducts = () => {
                     variant="light"
                     onClick={() => handleDeleteProduct(product._id)}
                   >
-                    <RiDeleteBin6Line />
+                    <RiDeleteBin6Line color="red" />
                   </Button>
                 </td>
               </tr>
