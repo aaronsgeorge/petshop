@@ -1,4 +1,5 @@
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo-white.png";
 import {
   FaFacebook,
@@ -32,15 +33,27 @@ const Footer = () => {
           </Col>
           <Col xs={6} md={3} className="mb-5">
             <h5>Start Shopping</h5>
-            <p>All Products</p>
-            <p>Sales</p>
-            <p>Toys</p>
-            <p>Treats</p>
-            <p>Holidays</p>
+            <Link to="/products">
+              <p>All Products</p>
+            </Link>
+            <Link to="/sales">
+              <p>Sales</p>
+            </Link>
+            <Link to="/products">
+              <p>Toys</p>
+            </Link>
+            <Link to="/products">
+              <p>Treats</p>
+            </Link>
+            <Link to="/products">
+              <p>Holidays</p>
+            </Link>
           </Col>
           <Col xs={6} md={3} className="mb-5">
             <h5>About Us</h5>
-            <p>Who we are</p>
+            <Link to="/about">
+              <p>Who we are</p>
+            </Link>
             <h5 className="mt-4">Follow Us</h5>
             <div className="fs-4 gap-3 d-flex">
               <FaFacebook />
@@ -52,7 +65,7 @@ const Footer = () => {
         </Row>
         <Row className="text-center">
           <hr />
-          <div>Ember © {currentYear} All rights reserved.</div>
+          <p>Ember © {currentYear} All rights reserved.</p>
         </Row>
       </Container>
     </footer>

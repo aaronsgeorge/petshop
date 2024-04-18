@@ -6,7 +6,7 @@ import { useGetProductsQuery } from "../../slices/productsApiSlice";
 const AllProducts = () => {
   const { data: products, isLoading } = useGetProductsQuery();
   return (
-    <div>
+    <div className="pb-5">
       <PageTitle title="All Products" />
 
       {isLoading ? (

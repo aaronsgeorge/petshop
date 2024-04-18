@@ -73,7 +73,7 @@ const Header2 = () => {
                   <NavDropdown.Divider />
                 </>
               )}
-              <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/account">Account</NavDropdown.Item>
               <NavDropdown.Item onClick={logoutHandler}>
                 Sign out
               </NavDropdown.Item>

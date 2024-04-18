@@ -19,6 +19,7 @@ code {
   font-weight: 700;
   text-align: center;
   color: rgb(64, 64, 64);
+
   & .title-line {
     position: relative;
     bottom: -2px;
@@ -36,6 +37,7 @@ code {
   font-weight: 700;
   text-align: left;
   color: rgb(64, 64, 64);
+
   & .title-line {
     position: relative;
     bottom: -2px;
@@ -137,8 +139,31 @@ footer {
     font-weight: 700;
     font-size: 18px;
   }
+
   & p {
     margin-bottom: 6px;
     font-size: 14px;
+  }
+
+  & a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+}
+
+.user-info {
+  & label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e06811;
+  }
+
+  & p {
+    font-size: 16px;
+    color: #232323;
+  }
+
+  & .user-icon {
+    color: #aeaeae;
   }
 }

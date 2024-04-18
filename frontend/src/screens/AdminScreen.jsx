@@ -29,7 +29,7 @@ const AdminScreen = () => {
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <Container className="py-3 px-0">
+      <Container className="pt-3 px-0 pb-5">
         <Outlet />
       </Container>
     </div>

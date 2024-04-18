@@ -27,15 +27,13 @@ const HomePopular = () => {
         )
       )}
 
-      <Row className="justify-content-md-center mt-4">
-        <Col md={{ span: 6, offset: 3 }}>
-          <Link to="/products">
-            <Button className="rounded-pill px-5 fw-bold" size="lg">
-              <span className="me-2">Shop All Products</span>
-              <FaArrowRight />
-            </Button>
-          </Link>
-        </Col>
+      <Row className=" mt-4 pb-5 text-center">
+        <Link to="/products">
+          <Button className="rounded-pill px-5 fw-bold" size="lg">
+            <span className="me-2">Shop All Products</span>
+            <FaArrowRight />
+          </Button>
+        </Link>
       </Row>
     </>
   );

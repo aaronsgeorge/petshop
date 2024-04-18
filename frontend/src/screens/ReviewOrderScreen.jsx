@@ -21,7 +21,7 @@ const ReviewOrderScreen = () => {
     <>
       <PageTitle title="Review Order" />
 
-      <Row className="py-2">
+      <Row className="pt-2 pb-5">
         <Col md={8}>
           <Card>
             <Card.Header>
@@ -95,7 +95,7 @@ const ReviewOrderScreen = () => {
                   Place Order for ${cart.totalPrice}
                 </Button>
               </ListGroup.Item>
-              
+
               <OrderPrice />
             </ListGroup>
           </Card>
