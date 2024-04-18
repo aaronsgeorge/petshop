@@ -41,7 +41,10 @@ const CartScreen = () => {
         <Col md={8}>
           {cartItems.length === 0 ? (
             <p>
-              Your cart is empty <Link to="/">Go Back</Link>
+              Your cart is empty.{" "}
+              <Link to="/" className="text-black">
+                Go back
+              </Link>
             </p>
           ) : (
             <ListGroup variant="flush" className="mb-5">

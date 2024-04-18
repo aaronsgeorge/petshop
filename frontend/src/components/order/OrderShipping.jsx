@@ -1,12 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Input from "../Input";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../../slices/cartSlice";
 
 const OrderShipping = () => {
-  const [isSaved, setIsSaved] = useState(false);
-
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
@@ -18,6 +16,8 @@ const OrderShipping = () => {
     postalCode: shippingAddress.postalCode || "",
     country: shippingAddress.country || "",
   });
+
+  const [isSaved, setIsSaved] = useState(shippingAddress.isSaved || false);
 
   const getLable = (key) => {
     return key
@@ -35,11 +35,12 @@ const OrderShipping = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShippingAddress(enteredValues));
+    dispatch(saveShippingAddress({ ...enteredValues, isSaved: true }));
     setIsSaved(true);
   };
 
   const editHandler = () => {
+    dispatch(saveShippingAddress({ ...shippingAddress, isSaved: false }));
     setIsSaved(false);
   };
 
@@ -53,7 +54,9 @@ const OrderShipping = () => {
             {Object.keys(enteredValues).map((key) => {
               return (
                 <Col md={6} key={`entered${key}`} className="mb-2">
-                  <span className="fw-bold text-black-50">{getLable(key) + ": "}</span>
+                  <span className="fw-bold text-black-50">
+                    {getLable(key) + ": "}
+                  </span>
                   {enteredValues[key]}
                 </Col>
               );

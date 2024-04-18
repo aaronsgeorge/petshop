@@ -20,7 +20,8 @@ export const updateCart = (state) => {
     Number(state.taxPrice)
   ).toFixed(2);
   // Calculate items number
-  state.itemsNumber = state.cartItems.reduce((acc, item) => acc + item.qty, 0);
+  state.itemsNumber =
+    state.cartItems.reduce((acc, item) => acc + item.qty, 0) || 0;
   // items number text
   state.itemsNumberText =
     state.itemsNumber <= 1

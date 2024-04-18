@@ -24,11 +24,11 @@ import AdminUsers from "./components/admin/AdminUsers";
 import AdminProducts from "./components/admin/AdminProducts";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
-import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import AllProducts from "./components/home/AllProducts";
 import SalesScreen from "./screens/SalesScreen";
 import AboutScreen from "./screens/AboutScreen";
-import ReviewOrderScreen from "./screens/ReviewOrderScreen";
+import OrderReviewScreen from "./screens/OrderReviewScreen";
+import OrderSuccessScreen from "./screens/OrderSuccessScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,8 +44,8 @@ const router = createBrowserRouter(
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/account" element={<ProfileScreen />} />
-        <Route path="/placeorder" element={<PlaceOrderScreen />} />
-        <Route path="/revieworder" element={<ReviewOrderScreen />} />
+        <Route path="/revieworder" element={<OrderReviewScreen />} />
+        <Route path="/ordersuccess/:orderId" element={<OrderSuccessScreen />} />
       </Route>
 
       <Route path="" element={<AdminRoute />}>

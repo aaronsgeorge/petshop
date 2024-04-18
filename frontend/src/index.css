@@ -167,3 +167,20 @@ footer {
     color: #aeaeae;
   }
 }
+
+.order-success {
+  position: relative;
+  margin: 0 auto;
+  width: 240px;
+  & .dog-img {
+    position: relative;
+    width: 100%;
+    border-radius: 50%;
+  }
+  & .thank-you {
+    position: absolute;
+    top: -50px;
+    right: -60px;
+    width: 150px;
+  }
+}
