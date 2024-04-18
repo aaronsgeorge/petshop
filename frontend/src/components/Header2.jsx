@@ -31,15 +31,11 @@ const Header2 = () => {
           backgroundColor: "#e06811",
         }}
       >
-        <div
-          style={{
-            opacity: "0.8",
-            transform: "scale(0.8)",
-          }}
-          className="text-white text-center p-1 fw-bold"
-        >
-          🚚&nbsp;&nbsp;&nbsp;FREE SHIPPING WHEN YOU SPEND $35&nbsp; &#129395;
-        </div>
+        <p className="text-white text-center p-1 fw-bold">
+          <small>
+            🚚&nbsp;&nbsp;&nbsp;FREE SHIPPING WHEN YOU SPEND $35&nbsp; &#129395;
+          </small>
+        </p>
       </div>
       <Navbar
         bg="light"
@@ -60,11 +56,7 @@ const Header2 = () => {
             <Nav.Link href="/about">About</Nav.Link>
           </Nav>
           {userInfo ? (
-            <NavDropdown
-              title={userInfo.name}
-              id="username"
-              align="end"
-            >
+            <NavDropdown title={userInfo.name} id="username" align="end">
               {userInfo.isAdmin && (
                 <>
                   <NavDropdown.Item href="/admin/products">

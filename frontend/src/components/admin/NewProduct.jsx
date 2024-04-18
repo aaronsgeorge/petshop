@@ -164,7 +164,7 @@ const NewProduct = ({ onClose }) => {
         <div className="d-flex pt-4">
           <Button
             type="submit"
-            className="ms-auto"
+            className="ms-auto rounded-pill px-4"
             onClick={createProductHandler}
           >
             {isLoading && <Loader />}

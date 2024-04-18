@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Form, Button, Col } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { savePaymentMethod } from "../../slices/cartSlice";
 
 const OrderPayment = () => {
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
 
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -24,7 +24,11 @@ const OrderPayment = () => {
             <span className="fw-bold text-black-50">Saved Method: </span>
             {paymentMethod}
           </p>
-          <div className="d-flex">
+          <small className="text-black-50">
+            * Will add other payment methods in the future
+          </small>
+
+          {/* <div className="d-flex">
             <Button
               variant="outline-primary"
               size="sm"
@@ -33,7 +37,7 @@ const OrderPayment = () => {
             >
               Edit
             </Button>
-          </div>
+          </div> */}
         </div>
       ) : (
         <Form onSubmit={submitHandler}>

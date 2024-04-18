@@ -11,7 +11,9 @@ const Input = ({
   return (
     <>
       <Form.Group as={component} controlId={controlId} className="pb-3">
-        <Form.Label>{label}</Form.Label>
+        <Form.Label>
+          <small className="text-black-50 fw-bold">{label}</small>
+        </Form.Label>
         <Form.Control as={inputAs} {...props} />
         <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
       </Form.Group>

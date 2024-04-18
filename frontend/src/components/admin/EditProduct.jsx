@@ -186,7 +186,7 @@ const EditProduct = ({ onClose, product }) => {
         <div className="d-flex pt-4">
           <Button
             type="submit"
-            className="ms-auto px-4"
+            className="ms-auto px-4 rounded-pill"
             onClick={handleEditProduct}
           >
             {isLoading && <Loader />}
