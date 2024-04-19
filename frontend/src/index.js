@@ -18,7 +18,7 @@ import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import AdminScreen from "./screens/AdminScreen";
-import ProfileScreen from "./screens/ProfileScreen";
+import AccountScreen from "./screens/AccountScreen";
 import AdminOrders from "./components/admin/AdminOrders";
 import AdminUsers from "./components/admin/AdminUsers";
 import AdminProducts from "./components/admin/AdminProducts";
@@ -43,7 +43,7 @@ const router = createBrowserRouter(
       <Route path="/about" element={<AboutScreen />} />
 
       <Route path="" element={<PrivateRoute />}>
-        <Route path="/account" element={<ProfileScreen />} />
+        <Route path="/account" element={<AccountScreen />} />
         <Route path="/revieworder" element={<OrderReviewScreen />} />
         <Route path="/ordersuccess/:orderId" element={<OrderSuccessScreen />} />
       </Route>
