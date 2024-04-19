@@ -12,6 +12,8 @@ const PurchaseHistory = () => {
         <p>Loading Purchase History...</p>
       ) : error ? (
         <p>Error: {error?.data?.message || error.error}</p>
+      ) : orders.length === 0 ? (
+        <p>No purchase history found.</p>
       ) : (
         <Table striped hover responsive className="table-style">
           <thead>
