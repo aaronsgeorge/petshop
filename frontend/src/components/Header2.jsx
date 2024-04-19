@@ -67,7 +67,7 @@ const Header2 = () => {
               )}
               <NavDropdown.Item href="/account">Account</NavDropdown.Item>
               <NavDropdown.Item onClick={logoutHandler}>
-                Sign out
+                <span className="text-primary">Sign out</span>
               </NavDropdown.Item>
             </NavDropdown>
           ) : (

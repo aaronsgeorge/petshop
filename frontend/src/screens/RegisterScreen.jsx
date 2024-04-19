@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import PageTitle from "../components/PageTitle";
 import { Container, Form, Button, Row, Col, Card } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import signUpImg from "../assets/sign-up.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setCredentials } from "../slices/authSlice";
 import { useRegisterMutation } from "../slices/usersApiSlice";
@@ -75,10 +77,10 @@ const RegisterScreen = () => {
 
   return (
     <Container>
-      <Row className="justify-content-md-center py-5">
+      <Row className="justify-content-md-center py-5 my-3">
         <Col xs={12} md={6} lg={5} xl={4}>
-          <Card className="my-2 p-4 rounded shadow" border="light">
-            <h2 className="mb-4 mt-2">Sign Up</h2>
+          <Card className="pt-3 pb-4 px-4 rounded shadow" border="light">
+            <PageTitle title="Sign Up" />
             <Form onSubmit={submitHandler} className="d-grid">
               <Form.Group controlId="username">
                 <Form.Label>User name</Form.Label>
@@ -149,12 +151,18 @@ const RegisterScreen = () => {
             <Row className="py-3">
               <Col>
                 Already have an account?{" "}
-                <Link to={redirect ? `/login?redirect=${redirect}` : `/login`}>
+                <Link
+                  to={redirect ? `/login?redirect=${redirect}` : `/login`}
+                  className="text-primary"
+                >
                   Sign in
                 </Link>
               </Col>
             </Row>
           </Card>
+        </Col>
+        <Col xs={12} md={6} lg={5} xl={4} className="pt-5 text-center">
+          <img src={signUpImg} alt="a dog says join us now" width={380} />
         </Col>
       </Row>
     </Container>

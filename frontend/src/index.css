@@ -27,7 +27,6 @@ code {
     width: 80px;
     height: 6px;
     background-color: #f78432;
-    z-index: -1;
     border-radius: 4px;
   }
 }
@@ -44,7 +43,6 @@ code {
     width: 80%;
     height: 6px;
     background-color: #f78432;
-    z-index: -1;
     border-radius: 4px;
   }
 }
@@ -62,6 +60,10 @@ code {
   top: -4px !important;
   background-color: #e06811 !important;
   color: white;
+}
+
+.text-primary {
+  color: #e06811 !important;
 }
 
 .btn-primary {
