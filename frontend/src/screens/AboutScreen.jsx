@@ -1,5 +1,5 @@
 import HomeTitle from "../components/home/HomeTitle";
-import image from "../assets/about.png";
+import image from "../assets/about.jpg";
 import { Row, Col } from "react-bootstrap";
 
 const AboutScreen = () => {
