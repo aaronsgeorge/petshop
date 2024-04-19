@@ -20,12 +20,12 @@ const AccountInfo = () => {
       <p>{userInfo?._id}</p>
       <label>Admin?</label>
       <p>{userInfo?.isAdmin ? "Yes" : "No"}</p>
-      <Button variant="primary" className="rounded-pill" size="sm">
+      {/* <Button variant="primary" className="rounded-pill mb-3" size="sm">
         Edit Profile
-      </Button>
+      </Button> */}
       <Button
         variant="outline-primary"
-        className="rounded-pill mt-3"
+        className="rounded-pill"
         size="sm"
         onClick={() => setShowResetPassword(true)}
       >

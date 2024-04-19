@@ -48,7 +48,6 @@ const AdminProducts = () => {
       <div className="d-flex align-items-center py-3">
         <Button
           className="btn btn-primary ms-auto rounded-pill px-4"
-          size="sm"
           onClick={handleShowCreateModal}
         >
           Create Product

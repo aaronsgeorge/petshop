@@ -2,9 +2,26 @@ import { FaCheck, FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Table, Button } from "react-bootstrap";
 import { useGetUsersQuery } from "../../slices/usersApiSlice";
+import { useDeleteUserMutation } from "../../slices/usersApiSlice";
+import { toast } from "react-toastify";
 
 const AdminUsers = () => {
-  const { data: users, error, isLoading } = useGetUsersQuery();
+  const { data: users, refetch, error, isLoading } = useGetUsersQuery();
+
+  const [deleteUser] = useDeleteUserMutation();
+
+  const handleDeleteUser = async (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await deleteUser(id);
+        toast.success("User deleted successfully");
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
+  };
+
   return (
     <div className="mt-3">
       {isLoading && <p>Loading...</p>}
@@ -28,17 +45,14 @@ const AdminUsers = () => {
                 <td>{user.email}</td>
                 <td>{user.isAdmin && <FaCheck />}</td>
                 <td className="text-nowrap">
-                  <Button
-                    size="sm"
-                    variant="light"
-                    className="me-2"
-                  >
+                  <Button size="sm" variant="light" className="me-2">
                     <FaRegEdit />
                   </Button>
                   <Button
                     size="sm"
                     variant="light"
                     className="text-primary"
+                    onClick={() => handleDeleteUser(user._id)}
                   >
                     <RiDeleteBin6Line />
                   </Button>
