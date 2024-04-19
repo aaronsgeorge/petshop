@@ -30,6 +30,20 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Users"],
       keepUnusedDataFor: 5,
     }),
+    profile: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/profile`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
+    userPassword: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/password`,
+        method: "PUT",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -38,4 +52,6 @@ export const {
   useLogoutMutation,
   useRegisterMutation,
   useGetUsersQuery,
+  useProfileMutation,
+  useUserPasswordMutation,
 } = usersApiSlice;
