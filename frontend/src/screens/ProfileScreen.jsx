@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import PageTitle from "../components/PageTitle";
 import { FaUserCircle } from "react-icons/fa";
 import { Row, Col, Card, Button } from "react-bootstrap";
+import PurchaseHistory from "../components/account/PurchaseHistory";
 
 const ProfileScreen = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -35,7 +36,7 @@ const ProfileScreen = () => {
         </Col>
 
         <Col md={8}>
-          <h5>Orders</h5>
+          <PurchaseHistory />
         </Col>
       </Row>
     </>

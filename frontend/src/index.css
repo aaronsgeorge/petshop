@@ -186,3 +186,13 @@ footer {
     width: 150px;
   }
 }
+
+.purchase-table {
+  font-size: 14px;
+  line-height: 36px;
+  & th {
+    font-size: 12px;
+    font-weight: 600;
+    color: #232323;
+  }
+}
