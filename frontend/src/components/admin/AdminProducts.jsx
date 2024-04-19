@@ -48,6 +48,7 @@ const AdminProducts = () => {
       <div className="d-flex align-items-center py-3">
         <Button
           className="btn btn-primary ms-auto rounded-pill px-4"
+          size="sm"
           onClick={handleShowCreateModal}
         >
           Create Product
@@ -58,7 +59,7 @@ const AdminProducts = () => {
       ) : products.length === 0 ? (
         <p>No products found</p>
       ) : (
-        <Table striped bordered hover>
+        <Table striped hover responsive className="table-style">
           <thead>
             <tr>
               <th>Image</th>
@@ -87,19 +88,22 @@ const AdminProducts = () => {
                 <td>{product.price}</td>
                 <td>{product.countInStock}</td>
                 <td>{product.category}</td>
-                <td>
+                <td className="text-nowrap">
                   <Button
+                    size="sm"
                     variant="light"
-                    className="mx-2"
+                    className="me-2"
                     onClick={() => handleClickEditBtn(product)}
                   >
                     <FaRegEdit />
                   </Button>
                   <Button
+                    size="sm"
                     variant="light"
+                    className="text-primary"
                     onClick={() => handleDeleteProduct(product._id)}
                   >
-                    <RiDeleteBin6Line color="red" />
+                    <RiDeleteBin6Line />
                   </Button>
                 </td>
               </tr>

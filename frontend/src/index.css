@@ -187,12 +187,15 @@ footer {
   }
 }
 
-.purchase-table {
+.table-style {
   font-size: 14px;
-  line-height: 36px;
+  color: #232323;
   & th {
     font-size: 12px;
     font-weight: 600;
-    color: #232323;
+    text-transform: uppercase;
+  }
+  & td {
+    padding: 16px 8px;
   }
 }

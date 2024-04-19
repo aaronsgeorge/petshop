@@ -13,7 +13,7 @@ const PurchaseHistory = () => {
       ) : error ? (
         <p>Error: {error?.data?.message || error.error}</p>
       ) : (
-        <Table striped hover responsive className="table-sm purchase-table">
+        <Table striped hover responsive className="table-style">
           <thead>
             <tr>
               <th>ID</th>
