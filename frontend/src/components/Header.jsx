@@ -59,7 +59,7 @@ const Header = () => {
             <NavDropdown title={userInfo.name} id="username" align="end">
               {userInfo.isAdmin && (
                 <>
-                  <NavDropdown.Item href="/admin/products">
+                  <NavDropdown.Item href="/admin/orders">
                     Admin dashboard
                   </NavDropdown.Item>
                   <NavDropdown.Divider />

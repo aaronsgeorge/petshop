@@ -1,30 +1,42 @@
+import { useEffect } from "react";
 import { Nav, Container } from "react-bootstrap";
 import PageTitle from "../components/PageTitle";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const AdminScreen = () => {
+  const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/admin" || location.pathname === "/admin/") {
+      navigate("/admin/orders");
+    }
+  }, [navigate, location]);
+
+  const segments = location.pathname.split("/");
+  const slicedPath = segments[2];
+
   return (
     <div>
       <PageTitle title="Admin Dashboard" />
       <Nav
         variant="tabs"
-        defaultActiveKey="/admin/orders"
-        activeKey={location.pathname}
+        defaultActiveKey="orders"
+        activeKey={slicedPath}
         className="fw-bold"
       >
         <Nav.Item>
-          <Nav.Link href="/admin/orders" eventKey="/admin/orders">
+          <Nav.Link href="/admin/orders" eventKey="orders">
             Orders
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/admin/users" href="/admin/users">
+          <Nav.Link eventKey="users" href="/admin/users">
             Users
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="/admin/products" href="/admin/products">
+          <Nav.Link eventKey="products" href="/admin/products">
             Products
           </Nav.Link>
         </Nav.Item>

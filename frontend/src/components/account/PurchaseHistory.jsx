@@ -1,4 +1,4 @@
-import { Table, Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetMyOrdersQuery } from "../../slices/ordersApiSlice";

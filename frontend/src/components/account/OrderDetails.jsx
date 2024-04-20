@@ -1,32 +1,95 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { FaAngleRight } from "react-icons/fa6";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import ImageContainer from "../ImageContainer";
-import { Row, Col, Table, Card } from "react-bootstrap";
+import { Row, Col, Table, Card, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useGetOrderDetailsQuery } from "../../slices/ordersApiSlice";
+import {
+  useGetOrderDetailsQuery,
+  usePayOrderMutation,
+  useDeliverOrderMutation,
+} from "../../slices/ordersApiSlice";
+import { toast } from "react-toastify";
 
 const OrderDetails = () => {
   const navigate = useNavigate();
+
   const { orderId } = useParams();
+
+  const location = useLocation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  const { data: order, isLoading, error } = useGetOrderDetailsQuery(orderId);
+  const segments = location.pathname.split("/");
+  const slicedPath = segments[1];
 
-  const isNotAuthorized = !isLoading && order?.user?._id !== userInfo._id;
+  const isInAdmin = slicedPath === "admin" && userInfo.isAdmin;
 
-  const isAuthorized = !isLoading && order && order?.user?._id === userInfo._id;
+  const {
+    data: order,
+    refetch,
+    isLoading,
+    error,
+  } = useGetOrderDetailsQuery(orderId);
+
+  const isNotAuthorized =
+    !isLoading && order?.user?._id !== userInfo._id && !isInAdmin;
+
+  const isAuthorized =
+    !isLoading && order && (order?.user?._id === userInfo._id || isInAdmin);
+
+  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+
+  const payHandler = async () => {
+    if (!window.confirm("Are you sure you want to mark this order as paid?")) {
+      return;
+    }
+
+    try {
+      await payOrder({ orderId, details: { payer: {} } });
+      refetch();
+      toast.success("Order is paid");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
+
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
+
+  const deliverHandler = async () => {
+    if (
+      !window.confirm("Are you sure you want to mark this order as delivered?")
+    ) {
+      return;
+    }
+
+    try {
+      await deliverOrder(orderId);
+      refetch();
+      toast.success("Order is delivered");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
 
   return (
     <div className="order-details">
-      <h6 className="fw-bold text-primary">
-        <Link to="/account" className="text-primary back-link">
-          Purchase History
-        </Link>
-        <FaAngleRight className="mx-1" />
-        Order Details
-      </h6>
+      {isInAdmin ? (
+        <h6 className="fw-bold text-primary mt-3">
+          <Link to="/admin/orders" className="text-primary back-link fs-5">
+            <FaAngleLeft className="me-1" />
+          </Link>
+          Order Details
+        </h6>
+      ) : (
+        <h6 className="fw-bold text-primary">
+          <Link to="/account" className="text-primary back-link">
+            Purchase History
+          </Link>
+          <FaAngleRight className="mx-1" />
+          Order Details
+        </h6>
+      )}
 
       <div>
         {isLoading && <p>Loading Order Details...</p>}
@@ -79,10 +142,12 @@ const OrderDetails = () => {
                   <h6 className="order-lable">Order Status</h6>
                   <p>
                     {order.isDelivered
-                      ? `Delivered on ${order.deliveredAt}`
+                      ? `Delivered on ${order.deliveredAt.substring(0, 10)}`
                       : "Not Delivered"}
                     <br />
-                    {order.isPaid ? `Paid on ${order.paidAt}` : "Not Paid"}
+                    {order.isPaid
+                      ? `Paid on ${order.paidAt.substring(0, 10)}`
+                      : "Not Paid"}
                   </p>
                 </Col>
               </Row>
@@ -130,6 +195,30 @@ const OrderDetails = () => {
                 </tbody>
               </Table>
             </Card>
+
+            {isInAdmin && (
+              <Card className="p-3 mt-4">
+                <h6 className="order-lable">Update Order Status</h6>
+                <p className="mt-3 mb-0">
+                  <Button
+                    onClick={payHandler}
+                    disabled={loadingPay || order.isPaid}
+                    className="rounded-pill px-3 me-4"
+                    size="sm"
+                  >
+                    Mark As Paid
+                  </Button>
+                  <Button
+                    onClick={deliverHandler}
+                    disabled={loadingDeliver || order.isDelivered}
+                    className="rounded-pill px-3"
+                    size="sm"
+                  >
+                    Mark As Delivered
+                  </Button>
+                </p>
+              </Card>
+            )}
           </div>
         )}
       </div>

@@ -50,7 +50,7 @@ const AdminOrders = () => {
                     )}
                   </td>
                   <td>
-                    <Link to={`/order/${order._id}`} className="text-primary">
+                    <Link to={`/admin/orders/${order._id}`} className="text-primary">
                       Details
                     </Link>
                   </td>
