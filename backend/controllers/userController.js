@@ -18,6 +18,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      shippingAddress: user.shippingAddress,
     });
   } else {
     res.status(401);
@@ -90,6 +91,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       user.password = req.body.password;
     }
 
+    user.shippingAddress = req.body.shippingAddress;
+
     const updatedUser = await user.save();
 
     res.json({
@@ -97,6 +100,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      shippingAddress: updatedUser.shippingAddress,
     });
   } else {
     res.status(404);
@@ -113,14 +117,9 @@ const updateUserPassword = asyncHandler(async (req, res) => {
   if (user) {
     if (await user.matchPassword(req.body.currentPassword)) {
       user.password = req.body.password;
-      const updatedUser = await user.save();
 
-      res.json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        isAdmin: updatedUser.isAdmin,
-      });
+      await user.save();
+      res.json({ message: "Password updated" });
     } else {
       res.status(401);
       throw new Error("Invalid password");
@@ -140,13 +139,13 @@ const deleteUser = asyncHandler(async (req, res) => {
   if (user) {
     if (user.isAdmin) {
       res.status(400);
-      throw new Error('Can not delete admin user');
+      throw new Error("Can not delete admin user");
     }
     await User.deleteOne({ _id: user._id });
-    res.json({ message: 'User removed' });
+    res.json({ message: "User removed" });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 });
 
