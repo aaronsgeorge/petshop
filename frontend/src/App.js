@@ -3,14 +3,14 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import Header from "./components/Header";
-import Header2 from "./components/Header2";
+import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 const App = () => {
   return (
     <>
       {/* <Header /> */}
-      <Header2 />
+      <Header />
       <main>
         <Container>
           <Outlet />
