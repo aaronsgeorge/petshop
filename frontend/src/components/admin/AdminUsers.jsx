@@ -1,8 +1,11 @@
 import { FaCheck, FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Table, Button } from "react-bootstrap";
-import { useGetUsersQuery } from "../../slices/usersApiSlice";
-import { useDeleteUserMutation } from "../../slices/usersApiSlice";
+import { Link } from "react-router-dom";
+import {
+  useGetUsersQuery,
+  useDeleteUserMutation,
+} from "../../slices/usersApiSlice";
 import { toast } from "react-toastify";
 
 const AdminUsers = () => {
@@ -45,9 +48,11 @@ const AdminUsers = () => {
                 <td>{user.email}</td>
                 <td>{user.isAdmin && <FaCheck />}</td>
                 <td className="text-nowrap">
-                  <Button size="sm" variant="light" className="me-2">
-                    <FaRegEdit />
-                  </Button>
+                  <Link to={`/admin/users/${user._id}`}>
+                    <Button size="sm" variant="light" className="me-2">
+                      <FaRegEdit />
+                    </Button>
+                  </Link>
                   <Button
                     size="sm"
                     variant="light"

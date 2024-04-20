@@ -1,4 +1,4 @@
-import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import ImageContainer from "../ImageContainer";
 import { Row, Col, Table, Card, Button } from "react-bootstrap";
@@ -11,8 +11,6 @@ import {
 import { toast } from "react-toastify";
 
 const OrderDetails = () => {
-  const navigate = useNavigate();
-
   const { orderId } = useParams();
 
   const location = useLocation();
@@ -76,8 +74,8 @@ const OrderDetails = () => {
     <div className="order-details">
       {isInAdmin ? (
         <h6 className="fw-bold text-primary mt-3">
-          <Link to="/admin/orders" className="text-primary back-link fs-5">
-            <FaAngleLeft className="me-1" />
+          <Link to="/admin/orders" className="text-primary back-link fs-5 me-1">
+            <FaAngleLeft />
           </Link>
           Order Details
         </h6>
@@ -168,16 +166,14 @@ const OrderDetails = () => {
                   {order.orderItems.map((item) => (
                     <tr key={item.product}>
                       <td style={{ width: "50px" }}>
-                        <div
-                          onClick={() => navigate(`/product/${item.product}`)}
-                        >
+                        <Link to={`/product/${item.product}`}>
                           <ImageContainer
                             src={item.image}
                             alt={item.name}
                             className="img-thumbnail"
                             size="48px"
                           />
-                        </div>
+                        </Link>
                       </td>
                       <td>
                         <Link

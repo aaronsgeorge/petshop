@@ -31,6 +31,7 @@ import OrderReviewScreen from "./screens/OrderReviewScreen";
 import OrderSuccessScreen from "./screens/OrderSuccessScreen";
 import OrderDetails from "./components/account/OrderDetails";
 import PurchaseHistory from "./components/account/PurchaseHistory";
+import AdminEditUser from "./components/admin/AdminEditUser";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -59,6 +60,7 @@ const router = createBrowserRouter(
           <Route path="orders" element={<AdminOrders />} />
           <Route path="orders/:orderId" element={<OrderDetails />} />
           <Route path="users" element={<AdminUsers />} />
+          <Route path="users/:userId" element={<AdminEditUser />} />
           <Route path="products" element={<AdminProducts />} />
         </Route>
       </Route>
