@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
+import { Outlet } from "react-router-dom";
 import PageTitle from "../components/PageTitle";
-import PurchaseHistory from "../components/account/PurchaseHistory";
 import AccountInfo from "../components/account/AccountInfo";
 
 const AccountScreen = () => {
@@ -17,7 +17,7 @@ const AccountScreen = () => {
         </Col>
 
         <Col md={9}>
-          <PurchaseHistory />
+          <Outlet />
         </Col>
       </Row>
     </>

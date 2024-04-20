@@ -12,6 +12,17 @@ code {
     monospace;
 }
 
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+p li ol ul {
+  font-size: 14px;
+  color: #232323;
+}
+
 .home-title {
   position: relative;
   margin: 24px auto;
@@ -126,10 +137,6 @@ code {
     font-weight: 600;
     color: #232323;
   }
-
-  & p {
-    color: #232323;
-  }
 }
 
 footer {
@@ -145,6 +152,7 @@ footer {
   & p {
     margin-bottom: 6px;
     font-size: 14px;
+    color: #ffffff;
   }
 
   & a {
@@ -160,10 +168,6 @@ footer {
     color: #e06811;
   }
 
-  & p {
-    font-size: 16px;
-    color: #232323;
-  }
   & .user-avatar {
     position: relative;
     margin-bottom: 24px;
@@ -216,5 +220,19 @@ footer {
   }
   & td {
     padding: 16px 8px;
+  }
+}
+
+.order-details {
+  & .back-link {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  & .order-lable {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(64, 64, 64, 0.691);
   }
 }

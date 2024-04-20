@@ -47,7 +47,7 @@ const PurchaseHistory = () => {
                   )}
                 </td>
                 <td>
-                  <Link to={`/order/${order._id}`} className="text-primary">
+                  <Link to={`/account/order/${order._id}`} className="text-primary">
                     Details
                   </Link>
                 </td>

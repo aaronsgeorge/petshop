@@ -29,6 +29,8 @@ import SalesScreen from "./screens/SalesScreen";
 import AboutScreen from "./screens/AboutScreen";
 import OrderReviewScreen from "./screens/OrderReviewScreen";
 import OrderSuccessScreen from "./screens/OrderSuccessScreen";
+import OrderDetails from "./components/account/OrderDetails";
+import PurchaseHistory from "./components/account/PurchaseHistory";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,7 +45,11 @@ const router = createBrowserRouter(
       <Route path="/about" element={<AboutScreen />} />
 
       <Route path="" element={<PrivateRoute />}>
-        <Route path="/account" element={<AccountScreen />} />
+        <Route path="/account/*" element={<AccountScreen />}>
+          <Route index={true} element={<PurchaseHistory />} />
+          <Route path="order/:orderId" element={<OrderDetails />} />
+        </Route>
+
         <Route path="/revieworder" element={<OrderReviewScreen />} />
         <Route path="/ordersuccess/:orderId" element={<OrderSuccessScreen />} />
       </Route>
