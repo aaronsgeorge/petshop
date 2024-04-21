@@ -31,7 +31,7 @@ p li ol ul {
   text-align: center;
   color: rgb(64, 64, 64);
 
-  & .title-line {
+  .title-line {
     position: relative;
     bottom: -2px;
     margin: 0 auto;
@@ -48,7 +48,7 @@ p li ol ul {
   text-align: left;
   color: rgb(64, 64, 64);
 
-  & .title-line {
+  .title-line {
     position: relative;
     bottom: -2px;
     width: 80%;
@@ -128,26 +128,38 @@ p li ol ul {
 }
 
 .published-switch {
-  & .form-check-input:checked {
+  .form-check-input:checked {
     background-color: #086366;
     border-color: #086366;
   }
 }
 
-.product-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06) !important;
+.product-card {
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06) !important;
+  }
+  .product-img {
+    position: relative;
+    .product-tag {
+      position: absolute;
+      display: flex;
+      top: 8px;
+      right: 8px;
+      gap: 8px;
+    }
+  }
 }
 
 .header-text {
-  & a {
+  a {
     color: #232323 !important;
   }
 }
 
 .about-content {
   padding-bottom: 72px;
-  & h4 {
+  h4 {
     margin-top: 22px;
     font-size: 1.2rem;
     font-weight: 600;
@@ -159,42 +171,42 @@ footer {
   background-color: #e06811;
   color: #ffffff;
   padding: 32px 0;
-  & h5 {
+  h5 {
     margin-bottom: 14px;
     font-weight: 700;
     font-size: 18px;
   }
 
-  & p {
+  p {
     margin-bottom: 6px;
     font-size: 14px;
     color: #ffffff;
   }
 
-  & a {
+  a {
     text-decoration: none;
     color: #ffffff;
   }
 }
 
 .user-info {
-  & label {
+  label {
     font-size: 12px;
     font-weight: 700;
     color: #e06811;
   }
 
-  & .user-avatar {
+  .user-avatar {
     position: relative;
     margin-bottom: 24px;
     width: 96px;
     height: 96px;
 
-    & .user-icon {
+    .user-icon {
       color: #aeaeae;
       width: 100%;
     }
-    & .admin-label {
+    .admin-label {
       position: absolute;
       bottom: -6px;
       left: calc(50% - 30px);
@@ -213,12 +225,12 @@ footer {
   position: relative;
   margin: 0 auto;
   width: 240px;
-  & .dog-img {
+  .dog-img {
     position: relative;
     width: 100%;
     border-radius: 50%;
   }
-  & .thank-you {
+  .thank-you {
     position: absolute;
     top: -50px;
     right: -60px;
@@ -229,24 +241,24 @@ footer {
 .table-style {
   font-size: 14px;
   color: #232323;
-  & th {
+  th {
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
   }
-  & td {
+  td {
     padding: 16px 8px;
   }
 }
 
 .order-details {
-  & .back-link {
+  .back-link {
     text-decoration: none;
     &:hover {
       text-decoration: underline;
     }
   }
-  & .order-lable {
+  .order-lable {
     font-size: 14px;
     font-weight: 700;
     color: rgba(64, 64, 64, 0.691);
@@ -254,7 +266,7 @@ footer {
 }
 
 .sale-tag {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   background-color: #e06811;
   color: #ffffff;
@@ -263,7 +275,7 @@ footer {
 }
 
 .popular-tag {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   background-color: #086366;
   color: #ffffff;
