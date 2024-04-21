@@ -252,3 +252,21 @@ footer {
     color: rgba(64, 64, 64, 0.691);
   }
 }
+
+.sale-tag {
+  font-size: 10px;
+  font-weight: 700;
+  background-color: #e06811;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 16px;
+}
+
+.popular-tag {
+  font-size: 10px;
+  font-weight: 700;
+  background-color: #086366;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 16px;
+}

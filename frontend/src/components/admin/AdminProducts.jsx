@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import { FaRegEdit } from "react-icons/fa";
+import { FaRegEdit, FaCheck } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ProductModal from "./ProductModal";
 import ImageContainer from "../ImageContainer";
+import SaleTag from "../SaleTag";
+import PopularTag from "../PopularTag";
 import {
   useGetProductsQuery,
   useDeleteProductMutation,
@@ -65,9 +67,12 @@ const AdminProducts = () => {
               <th>Price</th>
               <th>Count in Stock</th>
               <th>Category</th>
+              <th>Tags</th>
+              <th>Published</th>
               <th></th>
             </tr>
           </thead>
+          
           <tbody>
             {products.map((product) => (
               <tr key={product._id}>
@@ -86,6 +91,15 @@ const AdminProducts = () => {
                 <td>{product.price}</td>
                 <td>{product.countInStock}</td>
                 <td>{product.category}</td>
+                <td>
+                  <div className="gap-1 d-flex">
+                    {product.isOnSale && <SaleTag />}
+                    {product.isPopular && <PopularTag />}
+                  </div>
+                </td>
+                <td>
+                  {product.isPublished && <FaCheck className="text-success" />}
+                </td>
                 <td className="text-nowrap">
                   <Button
                     size="sm"
