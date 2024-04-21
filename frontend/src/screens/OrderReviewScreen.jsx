@@ -51,7 +51,6 @@ const ReviewOrderScreen = () => {
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
       }).unwrap();
-      console.log("res", res);
       toast.success("Order placed successfully");
       dispatch(clearCartItems());
       navigate(`/ordersuccess/${res._id}`);

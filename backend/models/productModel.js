@@ -33,11 +33,9 @@ const productSchema = mongoose.Schema(
     },
     brand: {
       type: String,
-      // required: true,
     },
     category: {
       type: String,
-      // required: true,
     },
     description: {
       type: String,
@@ -47,7 +45,7 @@ const productSchema = mongoose.Schema(
     rating: {
       type: Number,
       // required: true,
-      default: 0,
+      default: 5,
     },
     numReviews: {
       type: Number,
@@ -63,6 +61,23 @@ const productSchema = mongoose.Schema(
       type: Number,
       required: true,
       default: 0,
+    },
+    isPublished: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    isOnSale: {
+      type: Boolean,
+      default: false,
+    },
+    salePrice: {
+      type: Number,
+      default: 0,
+    },
+    isPopular: {
+      type: Boolean,
+      default: false,
     },
   },
   {

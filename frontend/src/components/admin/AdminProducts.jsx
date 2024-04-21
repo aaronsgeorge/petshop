@@ -3,7 +3,7 @@ import { Button, Table, Modal } from "react-bootstrap";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import NewProduct from "./NewProduct";
-import EditProduct from "./EditProduct";
+import ProductModal from "./ProductModal";
 import ImageContainer from "../ImageContainer";
 import {
   useGetProductsQuery,
@@ -120,17 +120,11 @@ const AdminProducts = () => {
         </Modal.Body>
       </Modal>
 
-      <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Product</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <EditProduct
-            product={selectedProduct}
-            onClose={handleCloseEditModal}
-          />
-        </Modal.Body>
-      </Modal>
+      <ProductModal
+        product={selectedProduct}
+        show={showEditModal}
+        onHide={handleCloseEditModal}
+      />
     </div>
   );
 };

@@ -118,6 +118,18 @@ p li ol ul {
   }
 }
 
+.form-check-input:checked {
+  background-color: #e06811;
+  border-color: #e06811;
+}
+
+.published-switch {
+  & .form-check-input:checked {
+    background-color: #086366;
+    border-color: #086366;
+  }
+}
+
 .product-card:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06) !important;
