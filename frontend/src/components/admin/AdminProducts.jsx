@@ -17,22 +17,22 @@ const AdminProducts = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const handleCloseCreateModal = () => setShowCreateModal(false);
-  const handleShowCreateModal = () => setShowCreateModal(true);
+  const closeCreateModalHandler = () => setShowCreateModal(false);
+  const showCreateModalHandler = () => setShowCreateModal(true);
 
-  const handleCloseEditModal = () => setShowEditModal(false);
-  const handleShowEditModal = () => setShowEditModal(true);
+  const closeEditModalHandler = () => setShowEditModal(false);
+  const showEditModalHandler = () => setShowEditModal(true);
 
   const { data: products, isLoading, refetch } = useGetProductsQuery();
 
   const [deleteProduct] = useDeleteProductMutation();
 
-  const handleClickEditBtn = (product) => {
+  const clickEditBtnHandler = (product) => {
     setSelectedProduct(product);
-    handleShowEditModal();
+    showEditModalHandler();
   };
 
-  const handleDeleteProduct = async (id) => {
+  const deleteProductHandler = async (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         await deleteProduct(id);
@@ -49,7 +49,7 @@ const AdminProducts = () => {
       <div className="d-flex align-items-center py-3">
         <Button
           className="btn btn-primary ms-auto rounded-pill px-4"
-          onClick={handleShowCreateModal}
+          onClick={showCreateModalHandler}
         >
           Create Product
         </Button>
@@ -65,14 +65,14 @@ const AdminProducts = () => {
               <th>Image</th>
               <th>Product Name</th>
               <th>Price</th>
-              <th>Count in Stock</th>
-              <th>Category</th>
               <th>Tags</th>
+              <th>In Stock</th>
+              <th>Category</th>
               <th>Published</th>
               <th></th>
             </tr>
           </thead>
-          
+
           <tbody>
             {products.map((product) => (
               <tr key={product._id}>
@@ -86,17 +86,28 @@ const AdminProducts = () => {
                 </td>
                 <td>
                   <p className="fw-bold mb-0">{product.name}</p>
-                  <p className="text-secondary fs-8">{`ID: ${product._id}`}</p>
+                  <small className="text-secondary">{`ID: ${product._id}`}</small>
                 </td>
-                <td>{product.price}</td>
-                <td>{product.countInStock}</td>
-                <td>{product.category}</td>
+                <td>
+                  {product.isOnSale ? (
+                    <span>
+                      <span className="text-decoration-line-through text-black-50">
+                        ${product.price}
+                      </span>
+                      <span className="ms-2">${product.salePrice}</span>
+                    </span>
+                  ) : (
+                    <span>${product.price}</span>
+                  )}
+                </td>
                 <td>
                   <div className="gap-1 d-flex">
                     {product.isOnSale && <SaleTag />}
                     {product.isPopular && <PopularTag />}
                   </div>
                 </td>
+                <td>{product.countInStock}</td>
+                <td className="text-capitalize">{product.category}</td>
                 <td>
                   {product.isPublished && <FaCheck className="text-success" />}
                 </td>
@@ -105,7 +116,7 @@ const AdminProducts = () => {
                     size="sm"
                     variant="light"
                     className="me-2"
-                    onClick={() => handleClickEditBtn(product)}
+                    onClick={() => clickEditBtnHandler(product)}
                   >
                     <FaRegEdit />
                   </Button>
@@ -113,7 +124,7 @@ const AdminProducts = () => {
                     size="sm"
                     variant="light"
                     className="text-primary"
-                    onClick={() => handleDeleteProduct(product._id)}
+                    onClick={() => deleteProductHandler(product._id)}
                   >
                     <RiDeleteBin6Line />
                   </Button>
@@ -128,14 +139,14 @@ const AdminProducts = () => {
       <ProductModal
         show={showCreateModal}
         isCreate
-        onHide={handleCloseCreateModal}
+        onHide={closeCreateModalHandler}
       />
 
       {/* Edit Product */}
       <ProductModal
         show={showEditModal}
         product={selectedProduct}
-        onHide={handleCloseEditModal}
+        onHide={closeEditModalHandler}
       />
     </div>
   );

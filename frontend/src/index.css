@@ -129,6 +129,13 @@ p li ol ul {
 
 .published-switch {
   .form-check-input:checked {
+    background-color: #007b2d;
+    border-color: #007b2d;
+  }
+}
+
+.popular-switch {
+  .form-check-input:checked {
     background-color: #086366;
     border-color: #086366;
   }

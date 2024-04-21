@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 
 const ProductModal = ({ show, isCreate, onHide, product }) => {
   const [image, setImage] = useState("");
+  
   const [enteredValues, setEnteredValues] = useState({
     name: "",
     price: 0,
@@ -60,7 +61,7 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
     }));
   }
 
-  const handleFileUpload = async (e) => {
+  const fileUploadHandler = async (e) => {
     const file = e.target.files[0];
     const fileURL = URL.createObjectURL(file);
     setImage(fileURL);
@@ -75,7 +76,7 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
     }
   };
 
-  function handleSubmit(event) {
+  function submitHandler(event) {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -110,6 +111,7 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
       toast.error(error?.data?.message || error.error);
     }
   };
+
   const clearForm = () => {
     setEnteredValues({
       name: "",
@@ -133,11 +135,11 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
           {isCreate ? "Create Product" : "Edit Product"}
         </Modal.Title>
       </Modal.Header>
-      <Form validated={validated} onSubmit={handleSubmit}>
+      <Form validated={validated} onSubmit={submitHandler}>
         <Modal.Body>
           {!isCreate && (
             <p className="text-secondary fs-6  mb-4">
-              Product ID: {product && product._id}
+              ID: {product && product._id}
             </p>
           )}
 
@@ -180,6 +182,7 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
                 type="switch"
                 id="isPopular"
                 label="is Popular"
+                className="popular-switch"
                 checked={enteredValues.isPopular}
                 onChange={(event) =>
                   handleInputChange("isPopular", event.target.checked)
@@ -233,6 +236,7 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
                     label={category}
                     name="category"
                     type="radio"
+                    className="text-capitalize"
                     id={category}
                     value={category}
                     checked={enteredValues.category === category}
@@ -250,7 +254,7 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
                 label="Image"
                 controlId="image"
                 type="file"
-                onChange={handleFileUpload}
+                onChange={fileUploadHandler}
                 accept="image/*"
                 disabled={loadingUpload}
               />
