@@ -59,7 +59,18 @@ const CartScreen = () => {
                         {item.name}
                       </Link>
                     </Col>
-                    <Col xs={2}>${item.price}</Col>
+                    <Col xs={2}>
+                      {item.isOnSale ? (
+                        <>
+                          <span className="text-decoration-line-through text-black-50">
+                            ${item.price}
+                          </span>
+                          <span className="ms-2">${item.salePrice}</span>
+                        </>
+                      ) : (
+                        <span>${item.price}</span>
+                      )}
+                    </Col>
                     <Col xs={2}>
                       <Form.Control
                         as="select"

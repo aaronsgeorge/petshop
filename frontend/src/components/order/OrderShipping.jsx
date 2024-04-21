@@ -8,13 +8,17 @@ const OrderShipping = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
+  const userInfo = useSelector((state) => state.auth.userInfo);
+
+  const { shippingAddress: defaultAddress } = userInfo;
+
   const [enteredValues, setEnteredValues] = useState({
-    firstName: shippingAddress.firstName || "",
-    lastName: shippingAddress.lastName || "",
-    address: shippingAddress.address || "",
-    city: shippingAddress.city || "",
-    postalCode: shippingAddress.postalCode || "",
-    country: shippingAddress.country || "",
+    firstName: shippingAddress.firstName || defaultAddress.firstName || "",
+    lastName: shippingAddress.lastName || defaultAddress.lastName || "",
+    address: shippingAddress.address || defaultAddress.address || "",
+    city: shippingAddress.city || defaultAddress.city || "",
+    postalCode: shippingAddress.postalCode || defaultAddress.postalCode || "",
+    country: shippingAddress.country || defaultAddress.country || "",
   });
 
   const [isSaved, setIsSaved] = useState(shippingAddress.isSaved || false);
@@ -25,7 +29,7 @@ const OrderShipping = () => {
       .replace(/^./, (str) => str.toUpperCase()); // Capitalize the first letter
   };
 
-  const handleInputChange = (key, value) => {
+  const inputChangeHandler = (key, value) => {
     setEnteredValues((prev) => {
       return { ...prev, [key]: value };
     });
@@ -86,7 +90,7 @@ const OrderShipping = () => {
                     controlId={key}
                     type="text"
                     onChange={(event) =>
-                      handleInputChange(key, event.target.value)
+                      inputChangeHandler(key, event.target.value)
                     }
                     value={enteredValues[key]}
                     required

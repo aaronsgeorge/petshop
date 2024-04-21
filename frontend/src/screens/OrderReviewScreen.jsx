@@ -1,4 +1,4 @@
-import { useEffect, use } from "react";
+import { useEffect } from "react";
 import PageTitle from "../components/PageTitle";
 import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import OrderShipping from "../components/order/OrderShipping";
@@ -12,7 +12,9 @@ import { toast } from "react-toastify";
 
 const ReviewOrderScreen = () => {
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const { shippingAddress } = cart;
@@ -23,7 +25,7 @@ const ReviewOrderScreen = () => {
     }
   }, []);
 
-  const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
 
   const placeOrderHandler = async () => {
     const isNoItemsInCart = cartItems.length === 0;
@@ -59,11 +61,27 @@ const ReviewOrderScreen = () => {
     }
   };
 
-  const disablePlaceOrderBtn =
+  const isDisabledOrderBtn =
     cartItems.length === 0 ||
     isLoading ||
     Object.keys(shippingAddress).length === 0 ||
     !shippingAddress.isSaved;
+
+  const getItemPrice = (item) => {
+    return item.isOnSale ? (
+      <>
+        <span className="text-decoration-line-through text-black-50">
+          ${item.price}
+        </span>{" "}
+        ${item.salePrice} x{item.qty} = $
+        {(item.qty * item.salePrice).toFixed(2)}
+      </>
+    ) : (
+      <span>
+        ${item.price} x {item.qty} = ${(item.qty * item.price).toFixed(2)}
+      </span>
+    );
+  };
 
   return (
     <>
@@ -99,8 +117,7 @@ const ReviewOrderScreen = () => {
                           </Link>
                         </Col>
                         <Col xs={5} className="text-end">
-                          {item.qty} x ${item.price} = $
-                          {(item.qty * item.price).toFixed(2)}
+                          {getItemPrice(item)}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -137,7 +154,7 @@ const ReviewOrderScreen = () => {
               <ListGroup.Item>
                 <Button
                   className="btn-block rounded-pill px-4 mb-2"
-                  disabled={disablePlaceOrderBtn}
+                  disabled={isDisabledOrderBtn}
                   onClick={placeOrderHandler}
                 >
                   Place Order for ${cart.totalPrice}

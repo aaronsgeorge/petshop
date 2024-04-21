@@ -184,8 +184,25 @@ const OrderDetails = () => {
                         </Link>
                       </td>
                       <td>{item.qty}</td>
-                      <td>{item.price}</td>
-                      <td>{item.qty * item.price}</td>
+                      <td>
+                        {item.isOnSale ? (
+                          <span>
+                            <span className="text-decoration-line-through text-black-50">
+                              ${item.price}
+                            </span>
+                            <span className="ms-2">${item.salePrice}</span>
+                          </span>
+                        ) : (
+                          <span>${item.price}</span>
+                        )}
+                      </td>
+                      <td>
+                        {item.isOnSale ? (
+                          <span>${(item.qty * item.salePrice).toFixed(2)}</span>
+                        ) : (
+                          <span>${(item.qty * item.price).toFixed(2)}</span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
