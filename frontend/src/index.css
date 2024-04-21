@@ -123,6 +123,10 @@ p li ol ul {
   border-color: #e06811;
 }
 
+.form-textarea {
+  height: 254px;
+}
+
 .published-switch {
   & .form-check-input:checked {
     background-color: #086366;

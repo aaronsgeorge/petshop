@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Button, Table, Modal } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import NewProduct from "./NewProduct";
 import ProductModal from "./ProductModal";
 import ImageContainer from "../ImageContainer";
 import {
@@ -111,18 +110,17 @@ const AdminProducts = () => {
         </Table>
       )}
 
-      <Modal show={showCreateModal} onHide={handleCloseCreateModal} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>New Product</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <NewProduct onClose={handleCloseCreateModal} />
-        </Modal.Body>
-      </Modal>
-
+      {/* Create Product */}
       <ProductModal
-        product={selectedProduct}
+        show={showCreateModal}
+        isCreate
+        onHide={handleCloseCreateModal}
+      />
+
+      {/* Edit Product */}
+      <ProductModal
         show={showEditModal}
+        product={selectedProduct}
         onHide={handleCloseEditModal}
       />
     </div>
