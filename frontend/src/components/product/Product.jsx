@@ -1,8 +1,8 @@
 import { Card, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import ImageContainer from "./ImageContainer";
-import { addToCart } from "../slices/cartSlice";
+import ImageContainer from "../ImageContainer";
+import { addToCart } from "../../slices/cartSlice";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import HomeTitle from "./HomeTitle.jsx";
 import { FaArrowRight } from "react-icons/fa";
 import { Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Product from "../../components/Product";
+import Product from "../product/Product.jsx";
 import { useGetProductsQuery } from "../../slices/productsApiSlice";
 
 const HomePopular = () => {

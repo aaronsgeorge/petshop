@@ -1,6 +1,6 @@
 import PageTitle from "../PageTitle.jsx";
 import { Row, Col } from "react-bootstrap";
-import Product from "../../components/Product";
+import Product from "../product/Product.jsx";
 import { useGetProductsQuery } from "../../slices/productsApiSlice";
 
 const AllProducts = () => {
