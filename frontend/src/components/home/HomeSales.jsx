@@ -5,18 +5,18 @@ import { Link } from "react-router-dom";
 import Product from "../product/Product.jsx";
 import { useGetProductsQuery } from "../../slices/productsApiSlice";
 
-const HomePopular = () => {
+const HomeSales = () => {
   const { data, isLoading, error } = useGetProductsQuery({
     keyword: "",
     pageNumber: 1,
     isPublished: true,
-    isPopular: true,
+    isOnSale: true,
     pageSize: 4,
   });
 
   return (
     <>
-      <HomeTitle title="Most Popular" />
+      <HomeTitle title="On Sales" />
 
       {isLoading ? (
         <p>Loading...</p>
@@ -36,10 +36,10 @@ const HomePopular = () => {
         )
       )}
 
-      <Row className="mt-4 pb-2 text-center">
-        <Link to="/products">
+      <Row className=" mt-4 pb-5 text-center">
+        <Link to="/sales">
           <Button className="rounded-pill px-5 fw-bold">
-            <span className="me-2">Shop All Products</span>
+            <span className="me-2">View More</span>
             <FaArrowRight />
           </Button>
         </Link>
@@ -48,4 +48,4 @@ const HomePopular = () => {
   );
 };
 
-export default HomePopular;
+export default HomeSales;

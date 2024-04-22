@@ -23,7 +23,10 @@ const AdminProducts = () => {
   const closeEditModalHandler = () => setShowEditModal(false);
   const showEditModalHandler = () => setShowEditModal(true);
 
-  const { data: products, isLoading, refetch } = useGetProductsQuery();
+  const { data, refetch, isLoading, error } = useGetProductsQuery({
+    keyword: "",
+    pageNumber: 1,
+  });
 
   const [deleteProduct] = useDeleteProductMutation();
 
@@ -56,7 +59,9 @@ const AdminProducts = () => {
       </div>
       {isLoading ? (
         <p>Loading...</p>
-      ) : products.length === 0 ? (
+      ) : error ? (
+        <p>Error: {error?.data?.message || error.error}</p>
+      ) : data?.products.length === 0 ? (
         <p>No products found</p>
       ) : (
         <Table striped hover responsive className="table-style">
@@ -74,7 +79,7 @@ const AdminProducts = () => {
           </thead>
 
           <tbody>
-            {products.map((product) => (
+            {data?.products.map((product) => (
               <tr key={product._id}>
                 <td>
                   <ImageContainer

@@ -5,9 +5,37 @@ import Product from "../models/productModel.js";
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
+  const pageSize = req.query.pageSize || undefined;
+  const page = Number(req.query.pageNumber) || 1;
 
-  res.json(products);
+  const {
+    keyword: keywordQuery,
+    isPublished,
+    category,
+    isPopular,
+    isOnSale,
+  } = req.query;
+
+  const keyword = {
+    ...(keywordQuery && {
+      name: {
+        $regex: keywordQuery,
+        $options: "i",
+      },
+    }),
+    ...(isPublished && { isPublished }),
+    ...(category && { category }),
+    ...(isPopular && { isPopular }),
+    ...(isOnSale && { isOnSale }),
+  };
+
+  const count = await Product.countDocuments({ ...keyword });
+  const products = await Product.find({ ...keyword })
+    .sort({ createdAt: 1 })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc    Create a product

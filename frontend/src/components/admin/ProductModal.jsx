@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 
 const ProductModal = ({ show, isCreate, onHide, product }) => {
   const [image, setImage] = useState("");
-  
+
   const [enteredValues, setEnteredValues] = useState({
     name: "",
     price: 0,
@@ -84,6 +84,12 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
       return;
     }
     setValidated(true);
+
+    if (isCreate) {
+      createProductHandler();
+    } else {
+      editProductHandler();
+    }
   }
 
   const editProductHandler = async () => {
@@ -126,7 +132,15 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
       isPopular: false,
     });
     setImage(DEFAULT_IMAGE);
+    setValidated(undefined);
   };
+
+  const isDisabledBtn =
+    loadingUpdate ||
+    loadingUpload ||
+    enteredValues.name === "" ||
+    enteredValues.price === 0 ||
+    enteredValues.description === "";
 
   return (
     <Modal show={show} onHide={onHide} size="lg">
@@ -288,8 +302,7 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
             <Button
               type="submit"
               className="ms-auto px-5 rounded-pill"
-              onClick={createProductHandler}
-              disabled={loadingCreate}
+              disabled={isDisabledBtn}
             >
               Create
             </Button>
@@ -297,8 +310,7 @@ const ProductModal = ({ show, isCreate, onHide, product }) => {
             <Button
               type="submit"
               className="ms-auto px-5 rounded-pill"
-              onClick={editProductHandler}
-              disabled={loadingUpdate}
+              disabled={isDisabledBtn}
             >
               Save
             </Button>
