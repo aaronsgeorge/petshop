@@ -24,7 +24,7 @@ import AdminUsers from "./components/admin/AdminUsers";
 import AdminProducts from "./components/admin/AdminProducts";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
-import AllProducts from "./components/home/AllProducts";
+import AllProductsScreen from "./screens/AllProductsScreen";
 import SalesScreen from "./screens/SalesScreen";
 import AboutScreen from "./screens/AboutScreen";
 import OrderReviewScreen from "./screens/OrderReviewScreen";
@@ -41,7 +41,13 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/product/:id" element={<ProductScreen />} />
       <Route path="/cart" element={<CartScreen />} />
-      <Route path="/products" element={<AllProducts />} />
+      <Route path="/products" element={<AllProductsScreen />} />
+      <Route path="/products/:pageNumber" element={<AllProductsScreen />} />
+      <Route path="/search/:keyword" element={<AllProductsScreen />} />
+      <Route
+        path="/search/:keyword/page/:pageNumber"
+        element={<AllProductsScreen />}
+      />
       <Route path="/sales" element={<SalesScreen />} />
       <Route path="/about" element={<AboutScreen />} />
 
