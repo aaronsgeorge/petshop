@@ -23,7 +23,7 @@ const AllProductsScreen = () => {
   });
 
   return (
-    <div className="pb-5 all-products">
+    <div className="pb-5 products-list">
       <PageTitle title="All Products" />
       <Row>
         <Col sm="12" md="6" className="mb-4">
