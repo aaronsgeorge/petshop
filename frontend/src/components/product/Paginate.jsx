@@ -1,9 +1,9 @@
 import { Pagination } from "react-bootstrap";
 import { redirectProductSearch } from "../../utils/navigationUtils.js";
 
-const Paginate = ({ pages, page, keyword = "", category = "" }) => {
+const Paginate = ({ pages, page, keyword = "", category = "", sort }) => {
   const onClickHandler = (x) => {
-    redirectProductSearch({ keyword, category, pageNumber: x + 1 });
+    redirectProductSearch({ keyword, category, sort, pageNumber: x + 1 });
   };
 
   return (

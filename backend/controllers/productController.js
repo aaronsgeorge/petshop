@@ -14,6 +14,7 @@ const getProducts = asyncHandler(async (req, res) => {
     category,
     isPopular,
     isOnSale,
+    sort: sortQuery,
   } = req.query;
 
   const keyword = {
@@ -29,9 +30,22 @@ const getProducts = asyncHandler(async (req, res) => {
     ...(isOnSale && { isOnSale }),
   };
 
+  const sortOptions = {
+    "createdAt:desc": { createdAt: -1 },
+    "createdAt:asc": { createdAt: 1 },
+    "price:desc": { price: -1 },
+    "price:asc": { price: 1 },
+  };
+
+  let sortParam = { createdAt: -1 };
+
+  if (sortQuery && sortOptions[sortQuery]) {
+    sortParam = sortOptions[sortQuery];
+  }
+
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
-    .sort({ createdAt: 1 })
+    .sort(sortParam)
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 

@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { redirectProductSearch } from "../../utils/navigationUtils";
 
 const CategoryButton = () => {
-  const { keyword, category: urlCategory } = useParams();
+  const { keyword, category: urlCategory, sort } = useParams();
   const getCategoryBtnTitle = () => {
     if (urlCategory) {
       return `Category: ${
@@ -15,7 +15,7 @@ const CategoryButton = () => {
   };
 
   const redirectHandler = (category) => {
-    redirectProductSearch({ keyword, category });
+    redirectProductSearch({ keyword, category, sort });
   };
 
   return (

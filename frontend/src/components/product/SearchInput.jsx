@@ -5,14 +5,14 @@ import { useParams } from "react-router-dom";
 import { redirectProductSearch } from "../../utils/navigationUtils.js";
 
 const SearchInput = () => {
-  const { keyword: urlKeyword, category } = useParams();
+  const { keyword: urlKeyword, category, sort } = useParams();
 
   const [keyword, setKeyword] = useState(urlKeyword || "");
 
   const submitHandler = (e) => {
     e.preventDefault();
     const trimmedKeyword = keyword.trim();
-    redirectProductSearch({ keyword: trimmedKeyword, category });
+    redirectProductSearch({ keyword: trimmedKeyword, category, sort });
   };
 
   return (

@@ -1,9 +1,11 @@
 export const redirectProductSearch = ({
   keyword,
   category,
-  pageNumber= 1,
+  sort,
+  pageNumber = 1,
 }) => {
   const keywordPath = keyword ? `/${keyword}` : "";
   const categoryPath = category ? `/category/${category}` : "/category";
-  window.location.href = `/search${keywordPath}${categoryPath}/sort/createdAt/page/${pageNumber}`;
+  const sortPath = sort ? `/sort/${sort}` : "/sort/createdAt:desc";
+  window.location.href = `/search${keywordPath}${categoryPath}${sortPath}/page/${pageNumber}`;
 };

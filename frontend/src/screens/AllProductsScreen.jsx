@@ -4,13 +4,14 @@ import Product from "../components/product/Product.jsx";
 import Paginate from "../components/product/Paginate.jsx";
 import SearchInput from "../components/product/SearchInput.jsx";
 import CategoryButton from "../components/product/CategoryButton.jsx";
+import SortButton from "../components/product/SortButton.jsx";
 import NoProductsFound from "../components/product/NoProductsFound.jsx";
 import { useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../slices/productsApiSlice.js";
 import { PAGINATION_LIMIT } from "../constants.js";
 
 const AllProductsScreen = () => {
-  const { pageNumber, keyword, category } = useParams();
+  const { pageNumber, keyword, category, sort } = useParams();
 
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
@@ -18,17 +19,21 @@ const AllProductsScreen = () => {
     isPublished: true,
     pageSize: PAGINATION_LIMIT,
     category,
+    sort,
   });
 
   return (
     <div className="pb-5 all-products">
       <PageTitle title="All Products" />
-      <Row className="mb-4">
-        <Col sm="12" md="6">
+      <Row>
+        <Col sm="12" md="6" className="mb-4">
           <SearchInput />
         </Col>
-        <Col>
-          <CategoryButton />
+        <Col className="d-flex mb-4">
+          <span className="ms-auto me-3">
+            <CategoryButton />
+          </span>
+          <SortButton />
         </Col>
       </Row>
 
@@ -53,6 +58,7 @@ const AllProductsScreen = () => {
                 pages={data.pages}
                 keyword={keyword}
                 category={category}
+                sort={sort}
               />
             </div>
           </>

@@ -6,4 +6,10 @@ export const UPLOADS_URL = "/api/upload";
 export const ORDERS_URL = "/api/orders";
 export const PAYPAL_URL = "/api/config/paypal";
 export const CATEGORY_TYPES = ["toys", "treates", "holidays"];
-export const PAGINATION_LIMIT = 3;
+export const SORT_TYPES = [
+  { label: "Newest", value: "createdAt:desc" },
+  { label: "Oldest", value: "createdAt:asc" },
+  { label: "Price High to Low", value: "price:desc" },
+  { label: "Price Low to High", value: "price:asc" },
+];
+export const PAGINATION_LIMIT = 8;
