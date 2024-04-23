@@ -1,21 +1,23 @@
 import PageTitle from "../components/PageTitle.jsx";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/product/Product.jsx";
-import Paginate from "../components/Paginate.jsx";
-import SearchInput from "../components/SearchInput.jsx";
+import Paginate from "../components/product/Paginate.jsx";
+import SearchInput from "../components/product/SearchInput.jsx";
+import CategoryButton from "../components/product/CategoryButton.jsx";
 import NoProductsFound from "../components/product/NoProductsFound.jsx";
 import { useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../slices/productsApiSlice.js";
 import { PAGINATION_LIMIT } from "../constants.js";
 
 const AllProductsScreen = () => {
-  const { pageNumber, keyword } = useParams();
+  const { pageNumber, keyword, category } = useParams();
 
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
     pageNumber,
     isPublished: true,
     pageSize: PAGINATION_LIMIT,
+    category,
   });
 
   return (
@@ -24,6 +26,9 @@ const AllProductsScreen = () => {
       <Row className="mb-4">
         <Col sm="12" md="6">
           <SearchInput />
+        </Col>
+        <Col>
+          <CategoryButton />
         </Col>
       </Row>
 
@@ -43,7 +48,12 @@ const AllProductsScreen = () => {
               ))}
             </Row>
             <div className="mt-4">
-              <Paginate page={data.page} pages={data.pages} keyword={keyword} />
+              <Paginate
+                page={data.page}
+                pages={data.pages}
+                keyword={keyword}
+                category={category}
+              />
             </div>
           </>
         )

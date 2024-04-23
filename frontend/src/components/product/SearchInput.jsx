@@ -2,21 +2,17 @@ import React, { useState } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
 import { FiSearch } from "react-icons/fi";
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { redirectProductSearch } from "../../utils/navigationUtils.js";
 
 const SearchInput = () => {
-  const navigate = useNavigate();
-  const { keyword: urlKeyword } = useParams();
+  const { keyword: urlKeyword, category } = useParams();
 
   const [keyword, setKeyword] = useState(urlKeyword || "");
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (keyword.trim()) {
-      navigate(`/search/${keyword.trim()}`);
-    } else {
-      navigate("/products");
-    }
+    const trimmedKeyword = keyword.trim();
+    redirectProductSearch({ keyword: trimmedKeyword, category });
   };
 
   return (

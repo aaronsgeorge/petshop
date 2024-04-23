@@ -1,10 +1,10 @@
 import { Pagination } from "react-bootstrap";
+import { redirectProductSearch } from "../../utils/navigationUtils.js";
 
-const Paginate = ({ pages, page, keyword = "" }) => {
-  
-  function generateHref(x) {
-    return keyword ? `/search/${keyword}/page/${x + 1}` : `/products/${x + 1}`;
-  }
+const Paginate = ({ pages, page, keyword = "", category = "" }) => {
+  const onClickHandler = (x) => {
+    redirectProductSearch({ keyword, category, pageNumber: x + 1 });
+  };
 
   return (
     <>
@@ -14,7 +14,7 @@ const Paginate = ({ pages, page, keyword = "" }) => {
             <Pagination.Item
               key={`Pagination${x + 1}`}
               active={x + 1 === page}
-              href={generateHref(x)}
+              onClick={() => onClickHandler(x)}
             >
               {x + 1}
             </Pagination.Item>
