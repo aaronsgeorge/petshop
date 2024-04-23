@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import { redirectProductSearch } from "../../utils/navigationUtils";
 
 const CategoryButton = () => {
-  const { keyword, category } = useParams();
+  const { keyword, category: urlCategory } = useParams();
   const getCategoryBtnTitle = () => {
-    if (category) {
+    if (urlCategory) {
       return `Category: ${
-        category.charAt(0).toUpperCase() + category.slice(1)
+        urlCategory.charAt(0).toUpperCase() + urlCategory.slice(1)
       }`;
     }
     return "Select Category";
@@ -26,8 +26,8 @@ const CategoryButton = () => {
     >
       <Dropdown.Item
         key="categoryAll"
-        className="text-capitalize text-primary"
         onClick={() => redirectHandler("")}
+        active={!urlCategory}
       >
         All
       </Dropdown.Item>
@@ -36,6 +36,7 @@ const CategoryButton = () => {
           key={category}
           className="text-capitalize"
           onClick={() => redirectHandler(category)}
+          active={urlCategory === category}
         >
           {category}
         </Dropdown.Item>

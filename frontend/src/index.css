@@ -294,3 +294,12 @@ footer {
 .all-products {
   min-height: 500px;
 }
+
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--primary-color);
+}
+
+.search-input {
+  border: #6c757d solid 1px;
+}

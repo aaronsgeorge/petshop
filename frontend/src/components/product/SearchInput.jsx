@@ -22,6 +22,7 @@ const SearchInput = () => {
           placeholder="Search Products..."
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
+          className="search-input"
         />
         <Button type="submit" variant="outline-secondary">
           <FiSearch className="fs-5" />
