@@ -5,7 +5,7 @@ export const DEFAULT_IMAGE = "/images/placeholder.jpg";
 export const UPLOADS_URL = "/api/upload";
 export const ORDERS_URL = "/api/orders";
 export const PAYPAL_URL = "/api/config/paypal";
-export const CATEGORY_TYPES = ["toys", "treates", "holidays"];
+export const CATEGORY_TYPES = ["toys", "treats", "holidays"];
 export const SORT_TYPES = [
   { label: "Newest", value: "createdAt:desc" },
   { label: "Oldest", value: "createdAt:asc" },

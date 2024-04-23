@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
-import CartButton from "./cart/CartButton";
+import CartButton from "./header/CartButton";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../slices/authSlice";
 import { useLogoutMutation } from "../slices/usersApiSlice";

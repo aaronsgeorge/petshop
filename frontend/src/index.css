@@ -70,6 +70,11 @@ p li ol ul {
   height: 100%;
   object-fit: cover;
   border-radius: 12px;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06) !important;
+  }
 }
 
 .cart-badge {
@@ -144,7 +149,7 @@ p li ol ul {
 
 .product-card {
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06) !important;
   }
   .product-img {
