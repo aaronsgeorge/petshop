@@ -1,4 +1,4 @@
-import { GrCart } from "react-icons/gr";
+import { FiShoppingCart } from "react-icons/fi";
 import { Button, Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
@@ -8,9 +8,9 @@ const CartButton = () => {
     <Button
       variant="light"
       style={{ position: "relative" }}
-      className="rounded-pill m-0"
+      className="rounded-pill"
     >
-      <GrCart />
+      <FiShoppingCart className="fs-5" />
       {cartItems.length > 0 && (
         <Badge pill className="cart-badge">
           {cartItems.length}

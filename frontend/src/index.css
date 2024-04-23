@@ -73,7 +73,7 @@ p li ol ul {
   &:hover {
     cursor: pointer;
     transform: scale(1.02);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06) !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
   }
 }
 
@@ -167,6 +167,22 @@ p li ol ul {
 .header-text {
   a {
     color: #232323 !important;
+  }
+}
+
+.header-search {
+  position: absolute;
+  width: 100%;
+  background-color: rgb(229, 229, 229);
+  z-index: 99;
+  transition: height 0.3s ease-out;
+  overflow: hidden;
+  &.hide {
+    height: 0;
+  }
+  &.show {
+    height: 100px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
   }
 }
 

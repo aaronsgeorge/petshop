@@ -1,17 +1,24 @@
-import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import logo from "../../assets/logo.png";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
-import CartButton from "./header/CartButton";
+import CartButton from "../header/CartButton";
+import HeaderSearch from "../header/HeaderSearch";
+import { FiSearch } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../slices/authSlice";
-import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../../slices/authSlice";
+import { useLogoutMutation } from "../../slices/usersApiSlice";
 
 const Header = () => {
+  const [showSearch, setShowSearch] = useState(false);
+
   const { userInfo } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const [logoutApiCall] = useLogoutMutation();
 
@@ -24,6 +31,25 @@ const Header = () => {
       console.error(err);
     }
   };
+
+  function hideSearchHandler() {
+    setShowSearch(false);
+  }
+
+  function showSearchHandler() {
+    setShowSearch(true);
+  }
+
+  const onClickSearchHandler = () => {
+    const segments = location.pathname.split("/");
+    const slicedPath = segments[1];
+    // do not show header search on All Products page
+    if (slicedPath === "products" || slicedPath === "search") {
+      return;
+    }
+    showSearchHandler();
+  };
+
   return (
     <header>
       <div
@@ -48,15 +74,20 @@ const Header = () => {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/products">Products</Nav.Link>
             <Nav.Link href="/sales">Sales</Nav.Link>
+            <Nav.Link href="/about">About</Nav.Link>
           </Nav>
+
           <Navbar.Brand href="/" className="mx-auto">
             <img src={logo} alt="Petizen logo" style={{ width: "110px" }} />
           </Navbar.Brand>
-          <Nav>
-            <Nav.Link href="/about">About</Nav.Link>
-          </Nav>
+
           {userInfo ? (
-            <NavDropdown title={userInfo.name} id="username" align="end">
+            <NavDropdown
+              title={userInfo.name}
+              id="username"
+              align="end"
+              className="header-dropdown"
+            >
               {userInfo.isAdmin && (
                 <>
                   <NavDropdown.Item href="/admin/orders">
@@ -77,13 +108,20 @@ const Header = () => {
               </Button>
             </Nav.Link>
           )}
+
           <Nav>
+            <Nav.Link onClick={onClickSearchHandler}>
+              <Button variant="light" className="rounded-pill">
+                <FiSearch className="fs-5" />
+              </Button>
+            </Nav.Link>
             <Nav.Link href="/cart">
               <CartButton />
             </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
+      <HeaderSearch show={showSearch} onHide={hideSearchHandler} />
     </header>
   );
 };
