@@ -1,18 +1,17 @@
 import { Table } from "react-bootstrap";
 import { FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useGetMyOrdersQuery } from "../../slices/ordersApiSlice";
 
-const PurchaseHistory = () => {
-  const { data: orders, isLoading, error } = useGetMyOrdersQuery();
+const OrdersTable = ({ isInAdmin, orders, isLoading, error }) => {
   return (
     <>
       <h6 className="fw-bold text-primary">Purchase History</h6>
+
       {isLoading ? (
         <p>Loading Purchase History...</p>
       ) : error ? (
         <p>Error: {error?.data?.message || error.error}</p>
-      ) : orders.length === 0 ? (
+      ) : orders?.length === 0 ? (
         <p>No purchase history found.</p>
       ) : (
         <Table striped hover responsive className="table-style">
@@ -47,7 +46,14 @@ const PurchaseHistory = () => {
                   )}
                 </td>
                 <td>
-                  <Link to={`/account/order/${order._id}`} className="text-primary">
+                  <Link
+                    to={
+                      isInAdmin
+                        ? `/admin/orders/${order._id}`
+                        : `/account/order/${order._id}`
+                    }
+                    className="text-primary"
+                  >
                     Details
                   </Link>
                 </td>
@@ -60,4 +66,4 @@ const PurchaseHistory = () => {
   );
 };
 
-export default PurchaseHistory;
+export default OrdersTable;

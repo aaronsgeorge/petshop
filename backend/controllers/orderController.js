@@ -52,6 +52,13 @@ const getMyOrders = asyncHandler(async (req, res) => {
   res.json(orders);
 });
 
+const getOrdersByUserId = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.params.id }).sort({
+    createdAt: -1,
+  });
+  res.json(orders);
+});
+
 // @desc    Get order by ID
 // @route   GET /api/orders/:id
 // @access  Private
@@ -120,6 +127,7 @@ const getOrders = asyncHandler(async (req, res) => {
 export {
   addOrderItems,
   getMyOrders,
+  getOrdersByUserId,
   getOrderById,
   updateOrderToPaid,
   updateOrderToDelivered,

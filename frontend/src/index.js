@@ -22,6 +22,7 @@ import AdminScreen from "./screens/AdminScreen";
 import AccountScreen from "./screens/AccountScreen";
 import AdminOrders from "./components/admin/AdminOrders";
 import AdminUsers from "./components/admin/AdminUsers";
+import AdminUserDetails from "./components/admin/AdminUserDetails";
 import AdminProducts from "./components/admin/AdminProducts";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
@@ -31,8 +32,7 @@ import AboutScreen from "./screens/AboutScreen";
 import OrderReviewScreen from "./screens/OrderReviewScreen";
 import OrderSuccessScreen from "./screens/OrderSuccessScreen";
 import OrderDetails from "./components/account/OrderDetails";
-import PurchaseHistory from "./components/account/PurchaseHistory";
-import AdminEditUser from "./components/admin/AdminEditUser";
+import AccountOrderHistory from "./components/account/AccountOrderHistory";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,7 +52,7 @@ const router = createBrowserRouter(
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/account/*" element={<AccountScreen />}>
-          <Route index={true} element={<PurchaseHistory />} />
+          <Route index={true} element={<AccountOrderHistory />} />
           <Route path="order/:orderId" element={<OrderDetails />} />
         </Route>
 
@@ -65,7 +65,7 @@ const router = createBrowserRouter(
           <Route path="orders" element={<AdminOrders />} />
           <Route path="orders/:orderId" element={<OrderDetails />} />
           <Route path="users" element={<AdminUsers />} />
-          <Route path="users/:userId" element={<AdminEditUser />} />
+          <Route path="users/:userId" element={<AdminUserDetails />} />
           <Route path="products" element={<AdminProducts />} />
         </Route>
       </Route>
