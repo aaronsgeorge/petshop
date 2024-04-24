@@ -28,6 +28,10 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/upload", uploadRoutes);
 
+app.get("/api/config/paypal", (req, res) =>
+  res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
+);
+
 const __dirname = path.resolve(); // set __dirname to the absolute path of the directory containing the source file
 app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); // make the uploads folder static
 
