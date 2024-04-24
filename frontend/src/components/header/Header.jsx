@@ -112,7 +112,7 @@ const Header = () => {
           <Nav>
             <Nav.Link onClick={onClickSearchHandler}>
               <Button variant="light" className="rounded-pill">
-                <FiSearch className="fs-5" />
+                <FiSearch />
               </Button>
             </Nav.Link>
             <Nav.Link href="/cart">

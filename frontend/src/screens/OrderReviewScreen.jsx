@@ -4,19 +4,16 @@ import { Row, Col, ListGroup, Image, Button, Card } from "react-bootstrap";
 import OrderShipping from "../components/order/OrderShipping";
 import OrderPayment from "../components/order/OrderPayment";
 import OrderPrice from "../components/order/OrderPrice";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import PayPalPayment from "../components/order/PayPalPayment";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  useCreateOrderMutation,
-  useGetPayPalClientIdQuery,
-  usePayOrderMutation,
-} from "../slices/ordersApiSlice";
+import { useCreateOrderMutation } from "../slices/ordersApiSlice";
 import { clearCartItems } from "../slices/cartSlice";
 import { toast } from "react-toastify";
 
 const ReviewOrderScreen = () => {
   const [order, setOrder] = useState({});
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -24,16 +21,6 @@ const ReviewOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const { shippingAddress } = cart;
-
-  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
-
-  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
-
-  const {
-    data: paypal,
-    isLoading: loadingPayPal,
-    error: errorPayPal,
-  } = useGetPayPalClientIdQuery();
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -46,66 +33,6 @@ const ReviewOrderScreen = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [order, dispatch]);
-
-  useEffect(() => {
-    if (!errorPayPal && !loadingPayPal && paypal.clientId) {
-      const loadPaypalScript = async () => {
-        paypalDispatch({
-          type: "resetOptions",
-          value: {
-            "client-id": paypal.clientId,
-            currency: "USD",
-          },
-        });
-        paypalDispatch({ type: "setLoadingStatus", value: "pending" });
-      };
-      if (Object.keys(order).length > 0 && !order.isPaid) {
-        loadPaypalScript();
-      }
-    }
-  }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
-
-  function createPayPalOrder(data, actions) {
-    return actions.order
-      .create({
-        purchase_units: [
-          {
-            amount: { value: order.totalPrice },
-          },
-        ],
-      })
-      .then((orderID) => {
-        return orderID;
-      });
-  }
-
-  function onError(err) {
-    toast.error("Failed to pay with PayPal");
-  }
-
-  function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
-      const orderId = order._id;
-      await paymentHandler(orderId, details);
-    });
-  }
-
-  const paymentHandler = async (orderId, details) => {
-    try {
-      await payOrder({ orderId, details });
-      toast.success("Order is paid");
-      dispatch(clearCartItems());
-      navigate(`/ordersuccess/${orderId}`);
-    } catch (error) {
-      console.error(error);
-      toast.error("Payment failed");
-      throw error;
-    }
-  };
-
-  const markPaidHandler = () => {
-    paymentHandler({ orderId: order._id, details: { payer: {} } });
-  };
 
   const [createOrder, { isLoading }] = useCreateOrderMutation();
 
@@ -142,12 +69,14 @@ const ReviewOrderScreen = () => {
       toast.error("Failed to create order");
     }
   };
+  const orderIsCreated = Object.keys(order).length > 0;
 
   const isDisabledOrderBtn =
     cartItems.length === 0 ||
     isLoading ||
     Object.keys(shippingAddress).length === 0 ||
-    !shippingAddress.isSaved;
+    !shippingAddress.isSaved ||
+    orderIsCreated;
 
   const getItemPrice = (item) => {
     return item.isOnSale ? (
@@ -165,7 +94,10 @@ const ReviewOrderScreen = () => {
     );
   };
 
-  const orderIsCreated = Object.keys(order).length > 0;
+  const onPaidHandler = () => {
+    dispatch(clearCartItems());
+    navigate(`/ordersuccess/${order._id}`);
+  };
 
   return (
     <>
@@ -236,62 +168,30 @@ const ReviewOrderScreen = () => {
           <Card className="py-2">
             <ListGroup variant="flush">
               <OrderPrice />
+              
               <ListGroup.Item>
                 <Button
-                  className="btn-block rounded-pill px-4 mt-2"
+                  className="btn-block rounded-pill px-4 mt-2 mb-2"
                   disabled={isDisabledOrderBtn}
                   onClick={placeOrderHandler}
                 >
                   Place Order for ${cart.totalPrice}
                 </Button>
-                {orderIsCreated && (
-                  <ListGroup>
-                    <ListGroup.Item className="mt-3">
-                      <div className="pb-4 pt-3">
-                        <p className="fs-6 fw-bold mb-0">Order Created</p>
-                        <small>
-                          Order ID: {order?._id}
-                          <br />
-                          Use the button below to pay with PayPal.
-                        </small>
-                      </div>
-                      {loadingPay && <p>Loading pay</p>}
-                      {isPending ? (
-                        <p>isPending</p>
-                      ) : (
-                        <div>
-                          <div>
-                            <PayPalButtons
-                              createOrder={createPayPalOrder}
-                              onApprove={onApprove}
-                              onError={onError}
-                            ></PayPalButtons>
-                          </div>
-                        </div>
-                      )}
-                      <small>
-                        <span style={{ wordBreak: "break-all" }}>
-                          Test account: sb-yj643q30574991@personal.example.com
-                        </span>
-                        <br />
-                        Password: Rj^%1t+E
-                      </small>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                      <div>
-                        <small>Mark order as paid without Paypal.</small>
-                      </div>
-                      <Button
-                        variant="outline-secondary"
-                        className="btn-block rounded-pill px-4 my-2"
-                        onClick={markPaidHandler}
-                      >
-                        Mark Order as Paid
-                      </Button>
-                    </ListGroup.Item>
-                  </ListGroup>
-                )}
               </ListGroup.Item>
+
+              {orderIsCreated && (
+                <ListGroup.Item>
+                  <div className="px-1 pt-3 pb-2">
+                    <p className="fs-6 fw-bold mb-0">Order Created</p>
+                    <small>
+                      Order ID: {order?._id}
+                      <br />
+                      Use the button below to pay with PayPal.
+                    </small>
+                  </div>
+                  <PayPalPayment order={order} onPaid={onPaidHandler} />
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>

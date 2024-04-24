@@ -10,7 +10,7 @@ const CartButton = () => {
       style={{ position: "relative" }}
       className="rounded-pill"
     >
-      <FiShoppingCart className="fs-5" />
+      <FiShoppingCart />
       {cartItems.length > 0 && (
         <Badge pill className="cart-badge">
           {cartItems.length}

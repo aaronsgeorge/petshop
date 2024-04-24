@@ -2,6 +2,8 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa6";
 import ImageContainer from "../ImageContainer";
 import { Row, Col, Table, Card, Button } from "react-bootstrap";
+import { FaCheck, FaTimes } from "react-icons/fa";
+import PayPalPayment from "../order/PayPalPayment";
 import { useSelector } from "react-redux";
 import {
   useGetOrderDetailsQuery,
@@ -70,6 +72,12 @@ const OrderDetails = () => {
     }
   };
 
+  const onPaidHandler = () => {
+    refetch();
+  };
+
+  const isShowPayPalBtn = order && !order.isPaid && !isInAdmin;
+
   return (
     <div className="order-details">
       {isInAdmin ? (
@@ -111,6 +119,24 @@ const OrderDetails = () => {
             <Card className="p-3">
               <Row>
                 <Col>
+                  {isInAdmin && order.user && (
+                    <>
+                      <h6 className="order-lable">User Info</h6>
+                      <p>
+                        Name:{" "}
+                        <Link
+                          to={`/admin/users/${order.user._id}`}
+                          className="text-black"
+                        >
+                          {order.user.name}
+                        </Link>
+                        <br />
+                        ID: {order.user._id}
+                        <br />
+                        Email: {order.user.email}
+                      </p>
+                    </>
+                  )}
                   <h6 className="order-lable">Shipping Address</h6>
                   <p>
                     {order.shippingAddress.firstName}{" "}
@@ -138,15 +164,32 @@ const OrderDetails = () => {
                   <h6 className="order-lable">Payment Method</h6>
                   <p>{order.paymentMethod}</p>
                   <h6 className="order-lable">Order Status</h6>
-                  <p>
-                    {order.isDelivered
-                      ? `Delivered on ${order.deliveredAt.substring(0, 10)}`
-                      : "Not Delivered"}
-                    <br />
-                    {order.isPaid
-                      ? `Paid on ${order.paidAt.substring(0, 10)}`
-                      : "Not Paid"}
-                  </p>
+                  {order.isPaid ? (
+                    <div>
+                      <FaCheck className="text-success me-2" />
+                      {`Paid on ${order.paidAt.substring(0, 10)}`}
+                    </div>
+                  ) : (
+                    <div>
+                      <FaTimes className="text-primary me-2" />
+                      Not Paid
+                    </div>
+                  )}
+                  {order.isDelivered ? (
+                    <div>
+                      <FaCheck className="text-success me-2" />
+                      {`Delivered on ${order.deliveredAt.substring(0, 10)}`}
+                    </div>
+                  ) : (
+                    <div>
+                      <FaTimes className="text-primary me-2" />
+                      Not Delivered
+                    </div>
+                  )}
+
+                  {isShowPayPalBtn && (
+                    <PayPalPayment order={order} onPaid={onPaidHandler} />
+                  )}
                 </Col>
               </Row>
             </Card>
@@ -212,7 +255,7 @@ const OrderDetails = () => {
             {isInAdmin && (
               <Card className="p-3 mt-4">
                 <h6 className="order-lable">Update Order Status</h6>
-                <p className="mt-3 mb-0">
+                <p className="mt-2 mb-0">
                   <Button
                     onClick={payHandler}
                     disabled={loadingPay || order.isPaid}
