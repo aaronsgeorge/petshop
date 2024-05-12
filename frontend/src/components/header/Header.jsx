@@ -1,36 +1,17 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import ShippingMessage from "./ShippingMessage";
+import NavUserButtons from "./NavUserButtons";
 import CartButton from "../header/CartButton";
 import HeaderSearch from "../header/HeaderSearch";
 import { FiSearch } from "react-icons/fi";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../slices/authSlice";
-import { useLogoutMutation } from "../../slices/usersApiSlice";
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
 
-  const { userInfo } = useSelector((state) => state.auth);
-
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-
   const location = useLocation();
-
-  const [logoutApiCall] = useLogoutMutation();
-
-  const logoutHandler = async () => {
-    try {
-      await logoutApiCall();
-      dispatch(logout());
-      navigate("/login");
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   function hideSearchHandler() {
     setShowSearch(false);
@@ -52,24 +33,54 @@ const Header = () => {
 
   return (
     <header>
-      <div
-        style={{
-          backgroundColor: "#e06811",
-        }}
-      >
-        <p className="text-white text-center p-1 fw-bold m-0">
-          <small>
-            🚚&nbsp;&nbsp;&nbsp;FREE SHIPPING WHEN YOU SPEND $35&nbsp; &#129395;
-          </small>
-        </p>
-      </div>
+      {/* mobile version */}
       <Navbar
         bg="light"
         data-bs-theme="light"
-        className="border-bottom"
-        style={{ height: "114px" }}
+        className="border-bottom d-block d-md-none pt-0"
+        collapseOnSelect
+        expand="md"
       >
-        <Container className="gap-4 fw-bold header-text">
+        <ShippingMessage />
+        <Container className="fw-bold header-text mt-2 ">
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            className="header-toggle"
+          />
+          <Navbar.Brand href="/" className="me-auto ms-2">
+            <img src={logo} alt="Petizen logo" style={{ width: "64px" }} />
+          </Navbar.Brand>
+
+          <NavUserButtons />
+
+          <Nav.Link onClick={onClickSearchHandler}>
+            <Button variant="light" className="rounded-pill me-2 ms-4">
+              <FiSearch />
+            </Button>
+          </Nav.Link>
+          <Nav.Link href="/cart">
+            <CartButton />
+          </Nav.Link>
+
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav>
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/products">Products</Nav.Link>
+              <Nav.Link href="/sales">Sales</Nav.Link>
+              <Nav.Link href="/about">About</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
+      {/* desktop version */}
+      <Navbar
+        bg="light"
+        data-bs-theme="light"
+        className="border-bottom d-none d-md-block pt-0"
+      >
+        <ShippingMessage />
+        <Container className="gap-4 fw-bold header-text pt-2">
           <Nav>
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/products">Products</Nav.Link>
@@ -81,33 +92,7 @@ const Header = () => {
             <img src={logo} alt="Petizen logo" style={{ width: "110px" }} />
           </Navbar.Brand>
 
-          {userInfo ? (
-            <NavDropdown
-              title={userInfo.name}
-              id="username"
-              align="end"
-              className="header-dropdown"
-            >
-              {userInfo.isAdmin && (
-                <>
-                  <NavDropdown.Item href="/admin/orders">
-                    Admin dashboard
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                </>
-              )}
-              <NavDropdown.Item href="/account">Account</NavDropdown.Item>
-              <NavDropdown.Item onClick={logoutHandler}>
-                <span className="text-primary">Sign out</span>
-              </NavDropdown.Item>
-            </NavDropdown>
-          ) : (
-            <Nav.Link href="/login">
-              <Button className="rounded-pill px-3 btn-primary" size="sm">
-                <span>Sign in</span>
-              </Button>
-            </Nav.Link>
-          )}
+          <NavUserButtons />
 
           <Nav>
             <Nav.Link onClick={onClickSearchHandler}>
