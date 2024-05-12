@@ -53,14 +53,16 @@ const AdminUsers = () => {
                       <FaRegEdit />
                     </Button>
                   </Link>
-                  <Button
-                    size="sm"
-                    variant="light"
-                    className="text-primary"
-                    onClick={() => handleDeleteUser(user._id)}
-                  >
-                    <RiDeleteBin6Line />
-                  </Button>
+                  {!user.isAdmin && (
+                    <Button
+                      size="sm"
+                      variant="light"
+                      className="text-primary"
+                      onClick={() => handleDeleteUser(user._id)}
+                    >
+                      <RiDeleteBin6Line />
+                    </Button>
+                  )}
                 </td>
               </tr>
             ))}

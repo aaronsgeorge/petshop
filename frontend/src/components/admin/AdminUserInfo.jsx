@@ -54,14 +54,16 @@ const AdminUserInfo = ({ user }) => {
         </>
       )}
 
-      <Button
-        variant="outline-danger"
-        className="rounded-pill mt-2"
-        size="sm"
-        onClick={handleDeleteUser}
-      >
-        Delete User
-      </Button>
+      {!user?.isAdmin && (
+        <Button
+          variant="outline-danger"
+          className="rounded-pill mt-2"
+          size="sm"
+          onClick={handleDeleteUser}
+        >
+          Delete User
+        </Button>
+      )}
     </Card>
   );
 };
