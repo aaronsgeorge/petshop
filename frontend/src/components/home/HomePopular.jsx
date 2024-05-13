@@ -36,7 +36,7 @@ const HomePopular = () => {
         )
       )}
 
-      <Row className="mt-4 pb-2 text-center">
+      <Row className="mt-1 pb-2 text-center">
         <Link to="/products">
           <Button className="rounded-pill px-5 fw-bold">
             <span className="me-2">Shop All Products</span>

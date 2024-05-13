@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HomeCarousel = () => {
   return (
-    <Row>
+    <Row className="pb-2">
       <Carousel pause="hover" fade>
         <Carousel.Item className="text-white text-right">
           <Link to="/products">

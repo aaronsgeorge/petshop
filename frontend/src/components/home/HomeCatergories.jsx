@@ -10,7 +10,7 @@ const HomeCatergories = () => {
   return (
     <>
       <HomeTitle title="Shop by Category" />
-      <Row className="mt-3 d-flex align-items-center">
+      <Row className="d-flex align-items-center">
         <Col xs={6} sm={6} md={4}>
           <img
             src="/images/category1.png"

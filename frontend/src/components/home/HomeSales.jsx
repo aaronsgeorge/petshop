@@ -36,7 +36,7 @@ const HomeSales = () => {
         )
       )}
 
-      <Row className=" mt-4 pb-5 text-center">
+      <Row className="mt-1 pb-5 text-center">
         <Link to="/sales">
           <Button className="rounded-pill px-5 fw-bold">
             <span className="me-2">View More</span>
