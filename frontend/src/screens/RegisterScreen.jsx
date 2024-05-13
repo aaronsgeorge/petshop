@@ -87,7 +87,6 @@ const RegisterScreen = () => {
                 <Form.Control
                   name="name"
                   type="text"
-                  placeholder="User name"
                   value={form.name}
                   onChange={handleChange}
                   autoComplete="name"
@@ -100,7 +99,6 @@ const RegisterScreen = () => {
                 <Form.Control
                   name="email"
                   type="email"
-                  placeholder="Enter email"
                   value={form.email}
                   onChange={handleChange}
                   autoComplete="email"
@@ -113,7 +111,6 @@ const RegisterScreen = () => {
                 <Form.Control
                   name="password"
                   type="password"
-                  placeholder="Enter password"
                   value={form.password}
                   onChange={handleChange}
                   autoComplete="current-password"
@@ -126,7 +123,6 @@ const RegisterScreen = () => {
                 <Form.Control
                   name="confirmPassword"
                   type="password"
-                  placeholder="Enter password"
                   value={form.confirmPassword}
                   onChange={handleChange}
                   autoComplete="current-password"
