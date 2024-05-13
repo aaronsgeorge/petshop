@@ -12,23 +12,22 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <footer>
-      <Container>
+      <Container className="px-4">
         <Row>
           <Col xs={6} md={3}>
             <img src={logo} alt="Petizen logo" width={100} />
+            <p class="mt-3 fw-bold">MERN Project</p>
           </Col>
           <Col xs={6} md={3} className="mb-5">
-            <h5>Contact Us</h5>
+            <h5>Contact Me</h5>
+            <p>Ember Chen</p>
             <p>
-              1111 Street Name,
-              <br /> San Jose, CA, USA
+              Portfolio Site:
+              <br />
+              <a href="https://ember-chen.site">ember-chen.site</a>
             </p>
-            <p>Phone: 123-456-7890</p>
             <p>
-              Email:{" "}
-              <a href="mailto:" className="text-decoration-none text-white">
-                hello@123.com
-              </a>
+              GitHub: <a href="https://github.com/cchen-00">cchen-00</a>
             </p>
           </Col>
           <Col xs={6} md={3} className="mb-5">
@@ -54,8 +53,7 @@ const Footer = () => {
             <Link to="/about">
               <p>Who we are</p>
             </Link>
-            <h5 className="mt-4">Follow Us</h5>
-            <div className="fs-4 gap-3 d-flex">
+            <div className="fs-4 gap-3 d-flex mt-3">
               <FaFacebook />
               <FaInstagram />
               <FaPinterest />
@@ -65,7 +63,11 @@ const Footer = () => {
         </Row>
         <Row className="text-center">
           <hr />
-          <p>Ember © {currentYear} All rights reserved.</p>
+          <p className="fw-bold mt-3">
+            Designed and Developed by{" "}
+            <a href="https://ember-chen.site">Ember Chen</a>
+          </p>
+          <p>Copyright © {currentYear} All rights reserved.</p>
         </Row>
       </Container>
     </footer>
