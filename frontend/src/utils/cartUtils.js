@@ -16,7 +16,9 @@ export const updateCart = (state) => {
   // Calculate tax price
   state.taxPrice = addDecimals(Number((0.15 * state.itemsPrice).toFixed(2)));
   // Calculate pre-tax price
-  state.preTaxPrice = Number(state.itemsPrice) + Number(state.shippingPrice);
+  state.preTaxPrice = addDecimals(
+    (Number(state.itemsPrice) + Number(state.shippingPrice)).toFixed(2)
+  );
   // Calculate total price
   state.totalPrice = (
     Number(state.itemsPrice) +
