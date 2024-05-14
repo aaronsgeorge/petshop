@@ -7,16 +7,22 @@ import {
   FaPinterest,
   FaYoutube,
 } from "react-icons/fa";
+import { redirectProductSearch } from "../utils/navigationUtils.js";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const categoryRedirectHandler = (category) => {
+    redirectProductSearch({ category });
+  };
+
   return (
     <footer>
       <Container className="px-4">
         <Row>
           <Col xs={6} md={3}>
             <img src={logo} alt="Petizen logo" width={100} />
-            <p class="mt-3 fw-bold">MERN Project</p>
+            <p className="mt-3 fw-bold">MERN Project</p>
           </Col>
           <Col xs={6} md={3} className="mb-5">
             <h5>Contact Me</h5>
@@ -38,15 +44,24 @@ const Footer = () => {
             <Link to="/sales">
               <p>Sales</p>
             </Link>
-            <Link to="/products">
-              <p>Toys</p>
-            </Link>
-            <Link to="/products">
-              <p>Treats</p>
-            </Link>
-            <Link to="/products">
-              <p>Holidays</p>
-            </Link>
+            <p
+              className="clickable"
+              onClick={() => categoryRedirectHandler("toys")}
+            >
+              Toys
+            </p>
+            <p
+              className="clickable"
+              onClick={() => categoryRedirectHandler("treats")}
+            >
+              Treats
+            </p>
+            <p
+              className="clickable"
+              onClick={() => categoryRedirectHandler("holidays")}
+            >
+              Holidays
+            </p>
           </Col>
           <Col xs={6} md={3} className="mb-5">
             <h5>About Us</h5>

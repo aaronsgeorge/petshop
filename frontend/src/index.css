@@ -221,6 +221,12 @@ footer {
     text-decoration: none;
     color: #ffffff;
   }
+
+  .clickable {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .user-info {
