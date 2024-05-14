@@ -2,7 +2,7 @@
 
 [![Site preview](/frontend/public/site-preview-pet.jpg)](https://petshop-38o7.onrender.com/)
 
-Designed and built a fully functional e-commerce website to solidify my understanding of the [MERN](https://www.mongodb.com/resources/languages/mern-stack) stack ([MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [React](https://react.dev/), and [Node. js](https://nodejs.org/en/)) and explore the capabilities of the [Redux](https://redux.js.org/) Toolkit.
+Designed and built a fully functional e-commerce website to solidify my understanding of the [MERN](https://www.mongodb.com/resources/languages/mern-stack) stack ([MongoDB](https://www.mongodb.com/), [Express](https://expressjs.com/), [React](https://react.dev/), [Node. js](https://nodejs.org/en/)) and explore the capabilities of the [Redux](https://redux.js.org/) Toolkit.
 
 View the live site: [petshop-38o7.onrender.com](https://petshop-38o7.onrender.com)
 
@@ -36,7 +36,7 @@ Tech Stack:
 Project Features:
 --------------------------
 ### All users:
-*   <b>Comprehensive Product Page:</b> The product page features pagination and allows users to filter products based on entered keywords, categories, price range, or creation date.
+*   <b>Comprehensive Product Page:</b> The products page features pagination and allows users to filter products based on entered keywords, and categories. Products could also be sorted by price or creation date.
 *   <b>Complete Shopping Cart and Payment/Order Creation:</b> Users can seamlessly add items to their cart, proceed to checkout, and complete the payment process to place orders.
 *   <b>User Registration and Login:</b> New users can register using their email address and password, and existing users can log in to their accounts.
 *   <b>User Profile Management:</b> Users can access their profiles to edit personal information, set default shipping addresses, and view their order history.
