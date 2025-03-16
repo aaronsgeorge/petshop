@@ -39,7 +39,7 @@ const Product = ({ product }) => {
             <span>
               <span className=" me-2">${product.salePrice}</span>
               <span className="text-decoration-line-through text-black-50 fs-6">
-                ${product.price}
+              ${product.price}
               </span>
             </span>
           ) : (

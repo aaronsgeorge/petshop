@@ -22,9 +22,9 @@ const Footer = () => {
         <Row>
           <Col xs={6} md={3}>
             <img src={logo} alt="Petizen logo" width={100} />
-            <p className="mt-3 fw-bold">MERN Project</p>
+            {/* <p className="mt-3 fw-bold">MERN Project</p> */}
           </Col>
-          <Col xs={6} md={3} className="mb-5">
+          {/* <Col xs={6} md={3} className="mb-5">
             <h5>Contact Me</h5>
             <p>Ember Chen</p>
             <p>
@@ -35,7 +35,7 @@ const Footer = () => {
             <p>
               GitHub: <a href="https://github.com/cchen-00">cchen-00</a>
             </p>
-          </Col>
+          </Col> */}
           <Col xs={6} md={3} className="mb-5">
             <h5>Start Shopping</h5>
             <Link to="/products">
@@ -58,12 +58,12 @@ const Footer = () => {
             </p>
             <p
               className="clickable"
-              onClick={() => categoryRedirectHandler("holidays")}
+              onClick={() => categoryRedirectHandler("animal")}
             >
-              Holidays
+              Animals
             </p>
           </Col>
-          <Col xs={6} md={3} className="mb-5">
+          {/* <Col xs={6} md={3} className="mb-5">
             <h5>About Us</h5>
             <Link to="/about">
               <p>Who we are</p>
@@ -74,14 +74,14 @@ const Footer = () => {
               <FaPinterest />
               <FaYoutube />
             </div>
-          </Col>
+          </Col> */}
         </Row>
         <Row className="text-center">
           <hr />
-          <p className="fw-bold mt-3">
+          {/* <p className="fw-bold mt-3">
             Designed and Developed by{" "}
             <a href="https://ember-chen.site">Ember Chen</a>
-          </p>
+          </p> */}
           <p>Copyright © {currentYear} All rights reserved.</p>
         </Row>
       </Container>

@@ -13,13 +13,13 @@ const AboutScreen = () => {
       </Row>
       <Row className="about-content">
         <Col md={{ span: 10, offset: 1 }} lg={{ span: 8, offset: 2 }}>
-          <p>
+          {/* <p>
             This website is a project I used to practice full-stack programming.
             I just make up the fllowing content to fill the space XD.
-          </p>
+          </p> */}
           <h4>About</h4>
           <p>
-            Petizen is a company that is passionate about pets and their owners.
+          PETSTOP is a company that is passionate about pets and their owners.
             We believe that pets are part of the family and deserve the best
             possible care. That's why we offer a wide range of high-quality pet
             products, from food and treats to toys and accessories. We also
@@ -71,7 +71,7 @@ const AboutScreen = () => {
           </p>
           <h4>Join the Family</h4>
           <p>
-            We invite you to join the Petizen family. We are committed to
+            We invite you to join the PETSTOP family. We are committed to
             providing you with everything you need to give your pet the best
             possible life.
           </p>

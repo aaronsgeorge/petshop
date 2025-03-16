@@ -32,7 +32,7 @@ const HomeCatergories = () => {
             src="/images/category3.png"
             alt="Shop Holiday Deals"
             className="category-img"
-            onClick={() => categoryRedirectHandler("holidays")}
+            onClick={() => categoryRedirectHandler("animal")}
           />
         </Col>
       </Row>

@@ -118,4 +118,4 @@ const PayPalPayment = ({ order, onPaid }) => {
   );
 };
 
-export default PayPalPayment;
+export default PayPalPayment;

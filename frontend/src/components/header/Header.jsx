@@ -68,6 +68,9 @@ const Header = () => {
               <Nav.Link href="/products">Products</Nav.Link>
               <Nav.Link href="/sales">Sales</Nav.Link>
               <Nav.Link href="/about">About</Nav.Link>
+              <Nav.Link href="/vet">Veterinary</Nav.Link>
+              <Nav.Link href="/post">Post A Pet</Nav.Link>
+              
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -86,6 +89,8 @@ const Header = () => {
             <Nav.Link href="/products">Products</Nav.Link>
             <Nav.Link href="/sales">Sales</Nav.Link>
             <Nav.Link href="/about">About</Nav.Link>
+            <Nav.Link href="/vet">Veterinary</Nav.Link>
+            <Nav.Link href="/post">Post A Pet</Nav.Link>
           </Nav>
 
           <Navbar.Brand href="/" className="mx-auto">

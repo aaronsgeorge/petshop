@@ -29,6 +29,8 @@ import CartScreen from "./screens/CartScreen";
 import AllProductsScreen from "./screens/AllProductsScreen";
 import SalesScreen from "./screens/SalesScreen";
 import AboutScreen from "./screens/AboutScreen";
+import Veterinary from "./screens/Veterinary";
+import Post from "./screens/Post";
 import OrderReviewScreen from "./screens/OrderReviewScreen";
 import OrderSuccessScreen from "./screens/OrderSuccessScreen";
 import OrderDetails from "./components/account/OrderDetails";
@@ -49,6 +51,8 @@ const router = createBrowserRouter(
       />
       <Route path="/sales" element={<SalesScreen />} />
       <Route path="/about" element={<AboutScreen />} />
+      <Route path="/vet" element={<Veterinary />} />
+      <Route path="/post" element={<Post/>} />
 
       <Route path="" element={<PrivateRoute />}>
         <Route path="/account/*" element={<AccountScreen />}>
