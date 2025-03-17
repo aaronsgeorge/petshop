@@ -29,26 +29,16 @@ const AdminOrders = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order) => (
+              {orders?.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.user && order.user.name}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.createdAt?.substring(0, 10) || "N/A"}</td>
                   <td>₹{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <FaTimes className="text-primary" />
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
-                    ) : (
-                      <FaTimes className="text-primary" />
-                    )}
-                  </td>
+                  
+                  <td>{order.isPaid ? order.paidAt?.substring(0, 10) : <FaTimes className="text-primary" />}</td>
+                  
+                  <td>{order.isDelivered ? order.deliveredAt?.substring(0, 10) : <FaTimes className="text-primary" />}</td>
                   <td>
                     <Link to={`/admin/orders/${order._id}`} className="text-primary">
                       Details

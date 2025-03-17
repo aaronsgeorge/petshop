@@ -14,7 +14,8 @@ const AdminScreen = () => {
   }, [navigate, location]);
 
   const segments = location.pathname.split("/");
-  const slicedPath = segments[2];
+  const slicedPath = segments[2] || "orders"; // Default fallback
+
 
   return (
     <div>
