@@ -71,13 +71,13 @@ const ProductScreen = () => {
                   <Col>
                     {product.isOnSale ? (
                       <span>
-                        <span className="fs-3 me-2">${product.salePrice}</span>
+                        <span className="fs-3 me-2">₹{product.salePrice}</span>
                         <span className="text-decoration-line-through text-black-50 fs-6">
-                          ${product.price}
+                          ₹{product.price}
                         </span>
                       </span>
                     ) : (
-                      <span className="fs-3">${product.price}</span>
+                      <span className="fs-3">₹{product.price}</span>
                     )}
                   </Col>
                 </Row>

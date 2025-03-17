@@ -13,7 +13,7 @@ const OrderPrice = ({ isInCart }) => {
           <Col>
             Subtotal <br></br>({cart.itemsNumberText})
           </Col>
-          <Col className="text-end">${cart.itemsPrice}</Col>
+          <Col className="text-end">₹{cart.itemsPrice}</Col>
         </Row>
       </ListGroup.Item>
       <ListGroup.Item>
@@ -39,7 +39,7 @@ const OrderPrice = ({ isInCart }) => {
       <ListGroup.Item>
         <Row className="fs-5 fw-bold">
           <Col>{isInCart ? "Estimated total" : "Total"}</Col>
-          <Col className="text-end">${displayPrice}</Col>
+          <Col className="text-end">₹{displayPrice}</Col>
         </Row>
       </ListGroup.Item>
     </>

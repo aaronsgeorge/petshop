@@ -37,13 +37,13 @@ const Product = ({ product }) => {
         <Card.Text className="fs-5 d-flex">
           {product.isOnSale ? (
             <span>
-              <span className=" me-2">${product.salePrice}</span>
+              <span className=" me-2">₹{product.salePrice}</span>
               <span className="text-decoration-line-through text-black-50 fs-6">
-              ${product.price}
+              ₹{product.price}
               </span>
             </span>
           ) : (
-            <span>${product.price}</span>
+            <span>₹{product.price}</span>
           )}
           <Button
             variant="outline-primary"

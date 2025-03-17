@@ -97,12 +97,12 @@ const AdminProducts = () => {
                   {product.isOnSale ? (
                     <span>
                       <span className="text-decoration-line-through text-black-50">
-                        ${product.price}
+                        ₹{product.price}
                       </span>
-                      <span className="ms-2">${product.salePrice}</span>
+                      <span className="ms-2">₹{product.salePrice}</span>
                     </span>
                   ) : (
-                    <span>${product.price}</span>
+                    <span>₹{product.price}</span>
                   )}
                 </td>
                 <td>

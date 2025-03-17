@@ -82,14 +82,14 @@ const ReviewOrderScreen = () => {
     return item.isOnSale ? (
       <>
         <span className="text-decoration-line-through text-black-50">
-          ${item.price}
+        ₹{item.price}
         </span>{" "}
-        ${item.salePrice} x{item.qty} = ₹
+        ₹{item.salePrice} x{item.qty} = ₹
         {(item.qty * item.salePrice).toFixed(2)}
       </>
     ) : (
       <span>
-        ${item.price} x {item.qty} = ${(item.qty * item.price).toFixed(2)}
+        ₹{item.price} x {item.qty} = ₹{(item.qty * item.price).toFixed(2)}
       </span>
     );
   };
@@ -175,7 +175,7 @@ const ReviewOrderScreen = () => {
                   disabled={isDisabledOrderBtn}
                   onClick={placeOrderHandler}
                 >
-                  Place Order for ${cart.totalPrice}
+                  Place Order for ₹{cart.totalPrice}
                 </Button>
               </ListGroup.Item>
 

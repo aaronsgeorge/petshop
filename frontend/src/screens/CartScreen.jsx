@@ -63,12 +63,12 @@ const CartScreen = () => {
                       {item.isOnSale ? (
                         <>
                           <span className="text-decoration-line-through text-black-50">
-                            ${item.price}
+                          ₹{item.price}
                           </span>
-                          <span className="ms-2">${item.salePrice}</span>
+                          <span className="ms-2">₹{item.salePrice}</span>
                         </>
                       ) : (
-                        <span>${item.price}</span>
+                        <span>₹{item.price}</span>
                       )}
                     </Col>
                     <Col xs={2}>
