@@ -1,10 +1,10 @@
-export const BASE_URL = "";
-export const USERS_URL = "/api/users";
-export const PRODUCTS_URL = "/api/products";
-export const DEFAULT_IMAGE = "/images/placeholder.jpg";
-export const UPLOADS_URL = "/api/upload";
-export const ORDERS_URL = "/api/orders";
-export const PAYPAL_URL = "/api/config/paypal";
+export const BASE_URL = "https://petshop-6t8g.onrender.com";
+export const USERS_URL = "https://petshop-6t8g.onrender.com/api/users";
+export const PRODUCTS_URL = "https://petshop-6t8g.onrender.com/api/products";
+export const DEFAULT_IMAGE = "https://petshop-6t8g.onrender.com/images/placeholder.jpg";
+export const UPLOADS_URL = "https://petshop-6t8g.onrender.com/api/upload";
+export const ORDERS_URL = "https://petshop-6t8g.onrender.com/api/orders";
+export const PAYPAL_URL = "https://petshop-6t8g.onrender.com/api/config/paypal";
 export const CATEGORY_TYPES = ["toys", "treats", "animal"];
 export const SORT_TYPES = [
   { label: "Newest", value: "createdAt:desc" },
