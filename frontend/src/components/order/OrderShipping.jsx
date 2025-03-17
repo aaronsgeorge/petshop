@@ -6,11 +6,13 @@ import { saveShippingAddress } from "../../slices/cartSlice";
 
 const OrderShipping = () => {
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  // const { shippingAddress } = cart;
 
   const userInfo = useSelector((state) => state.auth.userInfo);
 
-  const { shippingAddress: defaultAddress } = userInfo;
+  // const { shippingAddress: defaultAddress } = userInfo;
+  const shippingAddress = cart.shippingAddress || {}; 
+  const defaultAddress = userInfo?.shippingAddress || {};
 
   const [enteredValues, setEnteredValues] = useState({
     firstName: shippingAddress.firstName || defaultAddress.firstName || "",
