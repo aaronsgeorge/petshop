@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import HomeTitle from "../components/home/HomeTitle";
 import image from "../assets/about.jpg";
-import { Row, Col, Form, Button, Card } from "react-bootstrap";
+import { Row, Col, Form, Button, Card, Container } from "react-bootstrap";
 import axios from "axios";
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -108,16 +108,17 @@ const AboutScreen = () => {
   };
 
   return (
-    <>
+    <Container fluid>
       <Row>
-        <Col md={{ span: 10, offset: 1 }} lg={{ span: 8, offset: 2 }}>
+        <Col>
           <img src={image} alt="About Us" className="w-100 rounded-3 mt-4" />
+          <HomeTitle title="Veterinary" />
         </Col>
-        <HomeTitle title="Veterinary" />
       </Row>
 
+      {/* Search Bar */}
       <Row className="about-content">
-        <Col md={{ span: 10, offset: 1 }} lg={{ span: 8, offset: 2 }}>
+        <Col md={{ span: 8, offset: 2 }}>
           <Form className="d-flex my-3">
             <Form.Control
               type="text"
@@ -132,9 +133,10 @@ const AboutScreen = () => {
         </Col>
       </Row>
 
+      {/* Full-width Map */}
       <Row>
-        <Col md={6}>
-          <MapContainer center={mapCenter} zoom={13} style={{ height: "400px", width: "100%" }} key={mapCenter.toString()}>
+        <Col>
+          <MapContainer center={mapCenter} zoom={13} style={{ height: "500px", width: "100%" }} key={mapCenter.toString()}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {userLocation && (
               <Marker position={userLocation} icon={greenIcon}>
@@ -166,30 +168,34 @@ const AboutScreen = () => {
             {route && <Polyline positions={route} color="blue" />}
           </MapContainer>
         </Col>
+      </Row>
 
-        <Col md={6}>
-          <Row>
-            {veterinaries.map((vet) => (
-              <Col md={12} key={vet.id} className="mb-3">
-                <Card>
-                  <Card.Body>
-                    <Card.Title>{vet.title}</Card.Title>
-                    <Card.Text>{vet.address.label}</Card.Text>
-                    <Button
-                      variant="success"
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(vet.title)}`}
-                      target="_blank"
-                    >
-                      View on Google Maps
-                    </Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+      {/* Veterinary Listings Below */}
+      <Row className="mt-4">
+        <Col md={{ span: 8, offset: 2 }}>
+          <h4 className="text-center mb-3">Nearby Veterinaries</h4>
+          {veterinaries.length === 0 ? (
+            <p className="text-center">No veterinary services found</p>
+          ) : (
+            veterinaries.map((vet) => (
+              <Card key={vet.id} className="mb-3">
+                <Card.Body>
+                  <Card.Title>{vet.title}</Card.Title>
+                  <Card.Text>{vet.address.label}</Card.Text>
+                  <Button
+                    variant="success"
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(vet.title)}`}
+                    target="_blank"
+                  >
+                    View on Google Maps
+                  </Button>
+                </Card.Body>
+              </Card>
+            ))
+          )}
         </Col>
       </Row>
-    </>
+    </Container>
   );
 };
 

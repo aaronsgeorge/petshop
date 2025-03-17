@@ -20,7 +20,7 @@ const OrderPrice = ({ isInCart }) => {
         <Row>
           <Col>Shipping</Col>
           <Col className="text-end">
-            {cart.shippingPrice > 0 ? `$${cart.shippingPrice}` : "Free"}
+            {cart.shippingPrice > 0 ? `₹${cart.shippingPrice}` : "Free"}
           </Col>
         </Row>
       </ListGroup.Item>
@@ -31,7 +31,7 @@ const OrderPrice = ({ isInCart }) => {
             {isInCart ? (
               <span className="text-black-50">Calculated at checkout</span>
             ) : (
-              `$${cart.taxPrice}`
+              `₹${cart.taxPrice}`
             )}
           </Col>
         </Row>

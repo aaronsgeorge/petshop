@@ -1,121 +1,106 @@
-import { Button, ListGroup } from "react-bootstrap";
-import { useEffect } from "react";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import {
-  usePayOrderMutation,
-  useGetPayPalClientIdQuery,
-} from "../../slices/ordersApiSlice";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import { Form, Button, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { savePaymentMethod } from "../../slices/cartSlice";
 
-const PayPalPayment = ({ order, onPaid }) => {
-  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+const OrderPayment = () => {
+  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [isSaved, setIsSaved] = useState(true);
+  const dispatch = useDispatch();
 
-  const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
-
-  const {
-    data: paypal,
-    isLoading: loadingPayPal,
-    error: errorPayPal,
-  } = useGetPayPalClientIdQuery();
-
-  useEffect(() => {
-    if (!errorPayPal && !loadingPayPal && paypal.clientId) {
-      const loadPaypalScript = async () => {
-        paypalDispatch({
-          type: "resetOptions",
-          value: {
-            "client-id": paypal.clientId,
-            currency: "USD",
-          },
-        });
-        paypalDispatch({ type: "setLoadingStatus", value: "pending" });
-      };
-      if (Object.keys(order).length > 0 && !order.isPaid) {
-        loadPaypalScript();
-      }
-    }
-  }, [errorPayPal, loadingPayPal, order, paypal, paypalDispatch]);
-
-  function createPayPalOrder(data, actions) {
-    return actions.order
-      .create({
-        purchase_units: [
-          {
-            amount: { value: order.totalPrice },
-          },
-        ],
-      })
-      .then((orderID) => {
-        return orderID;
-      });
-  }
-
-  function onError(err) {
-    toast.error("Failed to pay with PayPal");
-  }
-
-  function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
-      const orderId = order._id;
-      await paymentHandler({ orderId, details });
-    });
-  }
-
-  const paymentHandler = async ({ orderId, details }) => {
-    try {
-      await payOrder({ orderId, details });
-      toast.success("Order is paid");
-      onPaid();
-    } catch (error) {
-      console.error(error);
-      toast.error("Payment failed");
-      throw error;
-    }
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(savePaymentMethod(paymentMethod));
+    setIsSaved(true);
   };
 
-  const markPaidHandler = async () => {
-    if (!window.confirm("Are you sure you want to mark this order as paid?")) {
-      return;
-    }
-    await paymentHandler({ orderId: order._id, details: { payer: {} } });
+  const handleRazorpayPayment = async () => {
+    const options = {
+      key: "Q7lOdbkSSc5VDH", // Replace with your Razorpay Key ID
+      amount: 10000, // Amount in paise (10000 paise = ₹100)
+      currency: "INR",
+      name: "Your Store Name",
+      description: "Payment for Order",
+      image: "https://yourwebsite.com/logo.png",
+      handler: function (response) {
+        alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+      },
+      prefill: {
+        name: "Customer Name",
+        email: "customer@example.com",
+        contact: "9999999999",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   return (
-    <ListGroup>
-      <ListGroup.Item className="pt-3">
-        {loadingPay && <p>Loading pay</p>}
-        {isPending ? (
-          <p>isPending</p>
-        ) : (
-          <PayPalButtons
-            createOrder={createPayPalOrder}
-            onApprove={onApprove}
-            onError={onError}
-          ></PayPalButtons>
-        )}
-        <small>
-          <span style={{ wordBreak: "break-all" }}>
-            Test account: sb-yj643q30574991@personal.example.com
-          </span>
-          <br />
-          Password: Rj^%1t+E
-        </small>
-      </ListGroup.Item>
-      <ListGroup.Item>
+    <>
+      {isSaved ? (
         <div>
-          <small>TEST ONLY: Mark order as paid without Paypal.</small>
+          <p>
+            <span className="fw-bold text-black-50">Saved Method: </span>
+            {paymentMethod}
+          </p>
+          <small className="text-black-50">
+            * Will add other payment methods in the future
+          </small>
         </div>
+      ) : (
+        <Form onSubmit={submitHandler}>
+          <Form.Group>
+            <Col>
+              <Form.Check
+                className="my-2"
+                type="radio"
+                label="PayPal"
+                id="PayPal"
+                name="paymentMethod"
+                value="PayPal"
+                checked={paymentMethod === "PayPal"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+              <Form.Check
+                className="my-2"
+                type="radio"
+                label="Razorpay"
+                id="Razorpay"
+                name="paymentMethod"
+                value="Razorpay"
+                checked={paymentMethod === "Razorpay"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
+          <div className="d-flex">
+            <Button
+              type="submit"
+              variant="primary"
+              size="sm"
+              className="rounded-pill px-4 ms-auto"
+            >
+              Save
+            </Button>
+          </div>
+        </Form>
+      )}
+      {paymentMethod === "Razorpay" && (
         <Button
-          variant="outline-secondary"
-          className="btn-block rounded-pill px-4 my-2"
-          onClick={markPaidHandler}
+          variant="success"
           size="sm"
+          className="rounded-pill px-4 ms-auto mt-2"
+          onClick={handleRazorpayPayment}
         >
-          Mark Order as Paid
+          Pay with Razorpay
         </Button>
-      </ListGroup.Item>
-    </ListGroup>
+      )}
+    </>
   );
 };
 
-export default PayPalPayment;
+export default OrderPayment;

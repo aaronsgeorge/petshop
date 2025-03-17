@@ -84,7 +84,7 @@ const ReviewOrderScreen = () => {
         <span className="text-decoration-line-through text-black-50">
           ${item.price}
         </span>{" "}
-        ${item.salePrice} x{item.qty} = $
+        ${item.salePrice} x{item.qty} = ₹
         {(item.qty * item.salePrice).toFixed(2)}
       </>
     ) : (
