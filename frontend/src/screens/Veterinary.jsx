@@ -82,31 +82,72 @@ const AboutScreen = () => {
     }
   };
 
-  // Fetch veterinarians based on entered location
-  const fetchCoordinatesAndSearch = async () => {
-    try {
-      const geoRes = await axios.get(
-        `https://geocode.search.hereapi.com/v1/geocode?q=${encodeURIComponent(location)}&apiKey=PSQL9IjSl3vts5U0otOTk76FteP_IeabyGj-sE9mx3o`
-      );
+  // // Fetch veterinarians based on entered location
+  // const fetchCoordinatesAndSearch = async () => {
+  //   try {
+  //     const geoRes = await axios.get(
+  //       `https://geocode.search.hereapi.com/v1/geocode?q=${encodeURIComponent(location)}&apiKey=PSQL9IjSl3vts5U0otOTk76FteP_IeabyGj-sE9mx3o`
+  //     );
 
-      if (geoRes.data.items.length === 0) {
-        alert("Location not found");
-        return;
-      }
+  //     if (geoRes.data.items.length === 0) {
+  //       alert("Location not found");
+  //       return;
+  //     }
 
-      const { lat, lng } = geoRes.data.items[0].position;
-      setMapCenter([lat, lng]); // Update map center to searched location
+  //     const { lat, lng } = geoRes.data.items[0].position;
+  //     setMapCenter([lat, lng]); // Update map center to searched location
 
-      const vetRes = await axios.get(
-        `https://discover.search.hereapi.com/v1/discover?at=${lat},${lng}&q=veterinary&limit=10&apiKey=PSQL9IjSl3vts5U0otOTk76FteP_IeabyGj-sE9mx3o`
-      );
+  //     const vetRes = await axios.get(
+  //       `https://discover.search.hereapi.com/v1/discover?at=${lat},${lng}&q=veterinary&limit=10&apiKey=PSQL9IjSl3vts5U0otOTk76FteP_IeabyGj-sE9mx3o`
+  //     );
 
-      setVeterinaries(vetRes.data.items);
-    } catch (error) {
-      console.error("Error fetching data", error);
+  //     setVeterinaries(vetRes.data.items);
+  //   } catch (error) {
+  //     console.error("Error fetching data", error);
+  //   }
+  // };
+// Fetch veterinarians based on entered location (using Nominatim + Overpass API)
+const fetchCoordinatesAndSearch = async () => {
+  try {
+    // 1️⃣ Geocode the entered location using Nominatim
+    const geoRes = await axios.get(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`
+    );
+
+    if (geoRes.data.length === 0) {
+      alert("Location not found");
+      return;
     }
-  };
 
+    const { lat, lon } = geoRes.data[0];
+    setMapCenter([parseFloat(lat), parseFloat(lon)]);
+
+    // 2️⃣ Fetch nearby veterinary clinics from OpenStreetMap (Overpass API)
+    const overpassQuery = `
+      [out:json];
+      node
+        [amenity=veterinary]
+        (around:5000,${lat},${lon});
+      out;
+    `;
+
+    const vetRes = await axios.get(
+      `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`
+    );
+
+    // 3️⃣ Convert the response into your expected structure
+    const vets = vetRes.data.elements.map((el, idx) => ({
+      id: idx,
+      title: el.tags.name || "Unnamed Veterinary Clinic",
+      address: { label: el.tags["addr:full"] || "Address unavailable" },
+      position: { lat: el.lat, lng: el.lon },
+    }));
+
+    setVeterinaries(vets);
+  } catch (error) {
+    console.error("Error fetching data", error);
+  }
+};
   return (
     <Container fluid>
       <Row>
